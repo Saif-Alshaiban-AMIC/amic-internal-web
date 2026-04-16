@@ -1,0 +1,169 @@
+@use '../../../../styles/variables' as *;
+
+.profile-page {
+  max-width: 900px;
+}
+
+.profile-header {
+  display: flex;
+  align-items: center;
+  gap: $space-lg;
+  margin-bottom: $space-2xl;
+
+  .avatar-circle {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    background: $color-peach;
+    color: $color-dark;
+    font-size: 1.5rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  h1 { font-size: 1.6rem; font-weight: 700; margin: 0 0 4px; }
+  p  { color: $color-text-muted; margin: 0; }
+
+  .btn-edit {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: $space-xs;
+    padding: $space-sm $space-lg;
+    background: $color-dark;
+    color: white;
+    border: none;
+    border-radius: $radius-sm;
+    font-family: inherit;
+    font-size: $font-size-sm;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s;
+    mat-icon { font-size: 18px; width: 18px; height: 18px; }
+    &:hover { background: $color-mid; }
+  }
+
+  .edit-actions {
+    margin-left: auto;
+    display: flex;
+    gap: $space-sm;
+  }
+}
+
+.profile-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: $space-lg;
+}
+
+.profile-card {
+  background: $color-surface;
+  border-radius: $radius-md;
+  padding: $space-lg;
+  box-shadow: $shadow-sm;
+
+  h3 {
+    font-size: $font-size-md;
+    font-weight: 600;
+    color: $color-text;
+    margin: 0 0 $space-lg;
+    padding-bottom: $space-sm;
+    border-bottom: 1px solid rgba($color-dark, 0.08);
+  }
+}
+
+.field-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: $space-md;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+
+  label {
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: $color-brown;
+  }
+
+  span {
+    font-size: $font-size-sm;
+    color: $color-text;
+    font-weight: 500;
+  }
+
+  input {
+    padding: 8px 10px;
+    border: 1.5px solid rgba($color-dark, 0.15);
+    border-radius: $radius-sm;
+    font-size: $font-size-sm;
+    font-family: inherit;
+    color: $color-text;
+    outline: none;
+    width: 100%;
+    box-sizing: border-box;
+    &:focus { border-color: $color-mid; }
+  }
+}
+
+.btn-save {
+  margin-top: $space-lg;
+  padding: 10px $space-xl;
+  background: $color-peach;
+  color: $color-dark;
+  border: none;
+  border-radius: $radius-sm;
+  font-family: inherit;
+  font-size: $font-size-sm;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.2s;
+  &:hover { opacity: 0.85; }
+}
+
+.btn-cancel {
+  margin-top: $space-lg;
+  padding: 10px $space-xl;
+  background: transparent;
+  color: $color-text;
+  border: 1.5px solid rgba($color-dark, 0.2);
+  border-radius: $radius-sm;
+  font-family: inherit;
+  font-size: $font-size-sm;
+  font-weight: 500;
+  cursor: pointer;
+  transition: border-color 0.2s;
+  &:hover { border-color: $color-mid; }
+}
+
+.security-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: $space-md;
+
+  .sec-label { font-size: $font-size-sm; font-weight: 500; color: $color-text; margin: 0 0 2px; }
+  .sec-value  { font-size: 12px; color: $color-text-muted; margin: 0; }
+}
+
+.btn-secondary {
+  padding: 8px $space-md;
+  background: transparent;
+  border: 1.5px solid rgba($color-dark, 0.2);
+  border-radius: $radius-sm;
+  font-family: inherit;
+  font-size: $font-size-sm;
+  color: $color-text;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: border-color 0.2s;
+  &:hover { border-color: $color-mid; }
+}

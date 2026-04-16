@@ -1,0 +1,15 @@
+<div class="shell" [class.collapsed]="sidebarCollapsed()">
+  <app-sidebar [collapsed]="sidebarCollapsed()" />
+  <div class="main">
+    <app-topbar
+      (toggleSidebar)="toggleSidebar()"
+      (toggleNotifications)="toggleNotifications()" />
+    <main class="content">
+      <router-outlet />
+    </main>
+  </div>
+</div>
+
+@if (showNotifications()) {
+  <app-notifications-panel (close)="showNotifications.set(false)" />
+}

@@ -1,0 +1,29 @@
+<aside class="sidebar" [class.collapsed]="collapsed()">
+  <div class="brand">
+    <img class="brand-logo" src="logo.jpeg" alt="Portal logo" />
+  </div>
+
+  <nav class="nav">
+    @for (item of navItems; track item.route) {
+      <button
+        class="nav-item"
+        [routerLink]="item.route"
+        routerLinkActive="active"
+        [matTooltip]="collapsed() ? (item.label | translate) : ''"
+        matTooltipPosition="right">
+        <mat-icon>{{ item.icon }}</mat-icon>
+        @if (!collapsed()) {
+          <span>{{ item.label | translate }}</span>
+        }
+      </button>
+    }
+  </nav>
+
+  <!-- Language toggle pinned to bottom -->
+  <button class="nav-item lang-toggle" (click)="toggleLang()">
+    <mat-icon>language</mat-icon>
+    @if (!collapsed()) {
+      <span>{{ currentLang() === 'en' ? 'العربية' : 'English' }}</span>
+    }
+  </button>
+</aside>

@@ -1,1 +1,50 @@
-/* You can add global styles to this file, and also import other style files */
+@use 'styles/variables' as *;
+@use 'styles/mixins' as *;
+@use 'styles/typography';
+
+@use '@angular/material' as mat;
+
+html {
+  @include mat.theme((
+    color: (
+      primary: mat.$azure-palette,
+      tertiary: mat.$orange-palette,
+    ),
+    typography: Inter,
+    density: 0,
+  ));
+}
+
+:root {
+  --mat-sys-primary:            #293940;
+  --mat-sys-on-primary:         #ffffff;
+  --mat-sys-primary-container:  #3E5159;
+  --mat-sys-secondary:          #8C8979;
+  --mat-sys-tertiary:           #F2B29B;
+  --mat-sys-on-tertiary:        #293940;
+  --mat-sys-background:         #F2F2F2;
+  --mat-sys-surface:            #ffffff;
+}
+
+
+/* Toast base style */
+.toast-success,
+.toast-error,
+.toast-info {
+  color: #fff;
+  font-weight: 500;
+  border-radius: 8px;
+}
+
+/* Variants */
+.toast-success {
+  background: #4caf50;
+}
+
+.toast-error {
+  background: #f44336;
+}
+
+.toast-info {
+  background: #2196f3;
+}

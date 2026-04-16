@@ -1,0 +1,42 @@
+<div class="auth-wrapper">
+  <div class="auth-card">
+
+<div class="auth-header">
+  <div class="brand">
+    <img src="logo.jpeg" alt="Company Logo" class="brand-logo" />
+  </div>
+  <p class="subtitle">Welcome back</p>
+  <h1>Sign in to your account</h1>
+</div>
+
+    <div class="auth-body">
+      <div class="form-field">
+        <label>Email address</label>
+        <input type="email" placeholder="you@company.com" [(ngModel)]="email" />
+      </div>
+
+      <div class="form-field">
+        <div class="label-row">
+          <label>Password</label>
+          <a class="forgot" routerLink="/auth/forgot-password">
+            Forgot password?
+          </a>
+        </div>
+        <div class="input-wrapper">
+          <input [type]="showPassword ? 'text' : 'password'" placeholder="••••••••" [(ngModel)]="password" />
+          <mat-icon class="toggle-pw" (click)="showPassword = !showPassword">
+            {{ showPassword ? 'visibility_off' : 'visibility' }}
+          </mat-icon>
+        </div>
+      </div>
+
+      <button class="btn-primary" (click)="onSubmit()">Sign in</button>
+
+      <p class="switch">
+        Don't have an account?
+        <a routerLink="/auth/register">Register</a>
+      </p>
+    </div>
+
+  </div>
+</div>

@@ -1,0 +1,44 @@
+// ── Brand Colors ──────────────────────────────
+$color-dark:       #293940;
+$color-mid:        #3E5159;
+$color-brown:      #8C8979;
+$color-peach:      #F2B29B;
+$color-light:      #F2F2F2;
+
+// ── Semantic Aliases ──────────────────────────
+$color-primary:    $color-dark;
+$color-accent:     $color-peach;
+$color-surface:    #ffffff;
+$color-background: $color-light;
+$color-text:       $color-dark;
+$color-text-muted: $color-brown;
+
+// ── Spacing ───────────────────────────────────
+$space-xs:  4px;
+$space-sm:  8px;
+$space-md:  16px;
+$space-lg:  24px;
+$space-xl:  32px;
+$space-2xl: 48px;
+
+// ── Typography ────────────────────────────────
+$font-primary: 'Inter', sans-serif;
+$font-size-sm: 0.875rem;
+$font-size-md: 1rem;
+$font-size-lg: 1.25rem;
+$font-size-xl: 1.5rem;
+
+// ── Layout ────────────────────────────────────
+$sidebar-width:          260px;
+$sidebar-collapsed-width: 72px;
+$topbar-height:           64px;
+
+// ── Elevation ────────────────────────────────
+$shadow-sm: 0 1px 3px rgba(41,57,64,0.08);
+$shadow-md: 0 4px 12px rgba(41,57,64,0.12);
+$shadow-lg: 0 8px 24px rgba(41,57,64,0.16);
+
+// ── Border Radius ─────────────────────────────
+$radius-sm: 6px;
+$radius-md: 10px;
+$radius-lg: 16px;

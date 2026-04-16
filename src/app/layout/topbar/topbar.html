@@ -1,0 +1,22 @@
+<header class="topbar">
+  <button mat-icon-button (click)="toggleSidebar.emit()">
+    <mat-icon>menu</mat-icon>
+  </button>
+
+  <div class="actions">
+    <!-- <mat-slide-toggle [checked]="currentLang === 'ar'" (change)="toggleLang($event.checked)">
+      {{ currentLang === 'ar' ? 'AR' : 'EN' }}
+    </mat-slide-toggle> -->
+
+    <button mat-icon-button (click)="toggleNotifications.emit()">
+      <mat-icon matBadge="2" matBadgeColor="warn">notifications</mat-icon>
+    </button>
+
+
+    <button mat-icon-button (click)="onLogout()">
+      <mat-icon>logout</mat-icon>
+    </button>
+
+    <div class="avatar" routerLink="/profile">AH</div>
+  </div>
+</header>

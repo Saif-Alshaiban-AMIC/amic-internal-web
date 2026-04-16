@@ -1,0 +1,48 @@
+<div class="auth-wrapper">
+  <div class="auth-card">
+
+<div class="auth-header">
+  <div class="brand">
+    <img src="logo.jpeg" alt="Company Logo" class="brand-logo" />
+  </div>
+  <p class="subtitle">Get Started</p>
+  <h1>Create your account</h1>
+</div>
+
+    <div class="auth-body">
+      <div class="name-row">
+        <div class="form-field">
+          <label>First name</label>
+          <input placeholder="Ahmad" [(ngModel)]="firstName" />
+        </div>
+        <div class="form-field">
+          <label>Last name</label>
+          <input placeholder="Hassan" [(ngModel)]="lastName" />
+        </div>
+      </div>
+
+      <div class="form-field">
+        <label>Work email</label>
+        <input type="email" placeholder="you@company.com" [(ngModel)]="email" />
+      </div>
+
+      <div class="form-field">
+        <label>Password</label>
+        <div class="input-wrapper">
+          <input [type]="showPassword ? 'text' : 'password'" placeholder="••••••••" [(ngModel)]="password" />
+          <mat-icon class="toggle-pw" (click)="showPassword = !showPassword">
+            {{ showPassword ? 'visibility_off' : 'visibility' }}
+          </mat-icon>
+        </div>
+      </div>
+
+      <button class="btn-primary" (click)="onSubmit()">Create account</button>
+
+      <p class="switch">
+        Already have an account?
+        <a routerLink="/auth/login">Sign in</a>
+      </p>
+    </div>
+
+  </div>
+</div>

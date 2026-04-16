@@ -1,0 +1,56 @@
+<div class="dashboard">
+
+  <!-- HEADER -->
+  <div class="header">
+    <h1>Dashboard</h1>
+  
+  </div>
+
+  <!-- CARDS -->
+  <div class="cards">
+
+    <mat-card class="card">
+      <mat-icon>people</mat-icon>
+      <h2>1,240</h2>
+      <p>Users</p>
+    </mat-card>
+
+    <mat-card class="card">
+      <mat-icon>work</mat-icon>
+      <h2>320</h2>
+      <p>Jobs</p>
+    </mat-card>
+
+    <mat-card class="card">
+      <mat-icon>assignment</mat-icon>
+      <h2>5,600</h2>
+      <p>Applications</p>
+    </mat-card>
+
+  </div>
+
+  <!-- TABLE -->
+  <mat-card class="table-card">
+
+    <h3>Recent Activity</h3>
+
+    <table mat-table [dataSource]="dataSource" class="table">
+
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef>Name</th>
+        <td mat-cell *matCellDef="let row">{{row.name}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef>Status</th>
+        <td mat-cell *matCellDef="let row">{{row.status}}</td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+    </table>
+
+  </mat-card>
+
+</div>

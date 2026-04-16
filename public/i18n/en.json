@@ -1,0 +1,17 @@
+{
+  "LOGIN": "Sign in",
+  "EMAIL": "Email address",
+  "PASSWORD": "Password",
+  "LOGOUT": "Logout",
+  "REGISTER": "Register",
+  "NAV": {
+    "DASHBOARD": "Dashboard",
+    "HR": "HR",
+    "IT": "IT",
+    "FINANCE": "Finance",
+    "PROCUREMENT": "Procurement",
+    "POLICIES": "Policies",
+    "SERVICE_DESK": "Service Desk",
+    "IMPORTANT_LINKS": "Important Links"
+  }
+}

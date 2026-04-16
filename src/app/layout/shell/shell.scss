@@ -1,0 +1,25 @@
+@use '../../../styles/variables' as *;
+
+.shell {
+  display: grid;
+  grid-template-columns: $sidebar-width 1fr;
+  min-height: 100vh;
+  transition: grid-template-columns 0.3s ease;
+
+  &.collapsed {
+    grid-template-columns: $sidebar-collapsed-width 1fr;
+  }
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.content {
+  flex: 1;
+  padding: $space-xl;
+  overflow-y: auto;
+  background: $color-background;
+}
