@@ -75,6 +75,25 @@
     &:focus { border-color: $color-mid; }
     &::placeholder { color: $color-brown; }
   }
+
+
+   select {
+    padding: 10px 14px;
+    border: 1.5px solid rgba($color-dark, 0.15);
+    border-radius: $radius-sm;
+    font-size: $font-size-md;
+    font-family: inherit;
+    color: $color-text;
+    background: white;
+    transition: border-color 0.2s;
+    outline: none;
+    width: 100%;
+    box-sizing: border-box;
+    appearance: none;
+    cursor: pointer;
+
+    &:focus { border-color: $color-mid; }
+  }
 }
 
 .input-wrapper {

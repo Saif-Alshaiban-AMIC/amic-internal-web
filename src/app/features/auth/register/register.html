@@ -1,13 +1,13 @@
 <div class="auth-wrapper">
   <div class="auth-card">
 
-<div class="auth-header">
-  <div class="brand">
-    <img src="logo.jpeg" alt="Company Logo" class="brand-logo" />
-  </div>
-  <p class="subtitle">Get Started</p>
-  <h1>Create your account</h1>
-</div>
+    <div class="auth-header">
+      <div class="brand">
+        <img src="logo.jpeg" alt="Company Logo" class="brand-logo" />
+      </div>
+      <p class="subtitle">Get Started</p>
+      <h1>Create your account</h1>
+    </div>
 
     <div class="auth-body">
       <div class="name-row">
@@ -24,6 +24,27 @@
       <div class="form-field">
         <label>Work email</label>
         <input type="email" placeholder="you@company.com" [(ngModel)]="email" />
+      </div>
+
+      <div class="form-field">
+        <label>Phone number</label>
+        <input type="tel" placeholder="+966 5X XXX XXXX" [(ngModel)]="phoneNumber" />
+      </div>
+
+      <div class="name-row">
+        <div class="form-field">
+          <label>Department</label>
+          <select [(ngModel)]="department">
+            <option value="" disabled>Select...</option>
+            <option *ngFor="let dept of departments" [value]="dept">
+              {{ dept | titlecase }}
+            </option>
+          </select>
+        </div>
+        <div class="form-field">
+          <label>Job title</label>
+          <input placeholder="Software Engineer" [(ngModel)]="jobTitle" />
+        </div>
       </div>
 
       <div class="form-field">

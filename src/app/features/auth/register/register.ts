@@ -16,22 +16,39 @@ export class Register {
   lastName = '';
   email = '';
   password = '';
+  phoneNumber = '';
+  department: string = '';
+  jobTitle = '';
   showPassword = false;
 
-  constructor(
-     private router: Router,
-     private authService: AuthService
-   ) {}
+  // Populate from your Department enum values
+  departments = [ "HR",
+    "IT",
+    "SALES",
+    "MARKETING",
+    "FINANCE",
+    "OPERATIONS",
+    "PROCUREMENT",
+    "LEGAL",
+    "CUSTOMER_SERVICE",];
 
-onSubmit() {
-  this.authService.register({
-    email: this.email,
-    password: this.password,
-    firstName: this.firstName,
-    lastName: this.lastName
-  }).subscribe({
-    next: () => this.router.navigate(['/auth/login']),
-    error: (err) => console.log(err)
-  });
-}
+  constructor(
+    private router: Router,
+    private authService: AuthService
+  ) {}
+
+  onSubmit() {
+    this.authService.register({
+      email: this.email,
+      password: this.password,
+      firstName: this.firstName,
+      lastName: this.lastName,
+      phoneNumber: this.phoneNumber,
+      department: this.department,
+      jobTitle: this.jobTitle
+    }).subscribe({
+      next: () => this.router.navigate(['/auth/login']),
+      error: (err) => console.log(err)
+    });
+  }
 }
