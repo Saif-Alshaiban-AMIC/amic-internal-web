@@ -1,79 +1,92 @@
 <div class="profile-page">
 
-  <div class="profile-header">
-    <div class="avatar-circle">{{ initials() }}</div>
-    <div>
-      <h1>{{ user().firstName }} {{ user().lastName }}</h1>
-      <p>{{ user().jobTitle }} · {{ user().department }} Department</p>
-    </div>
-    @if (!editing()) {
-      <button class="btn-edit" (click)="startEdit()">
-        <mat-icon>edit</mat-icon> Edit profile
-      </button>
-    } @else {
-      <div class="edit-actions">
-        <button class="btn-save" (click)="save()">Save changes</button>
-        <button class="btn-cancel" (click)="cancel()">Cancel</button>
+  @if (loading()) {
+    <div class="state-center"><mat-icon class="spin">sync</mat-icon></div>
+  } @else if (error() && !user()) {
+    <div class="state-center error">{{ error() }}</div>
+  } @else {
+
+    <div class="profile-header">
+      <div class="avatar-circle">{{ initials() }}</div>
+      <div>
+        <h1>{{ user()!.firstName }} {{ user()!.lastName }}</h1>
+        <p>{{ user()!.jobTitle }} · {{ user()!.department }} Department</p>
       </div>
+      @if (!editing()) {
+        <button class="btn-edit" (click)="startEdit()">
+          <mat-icon>edit</mat-icon> Edit profile
+        </button>
+      } @else {
+        <div class="edit-actions">
+          <button class="btn-save" (click)="save()" [disabled]="saving()">
+            @if (saving()) { <mat-icon class="spin">sync</mat-icon> }
+            @else { Save changes }
+          </button>
+          <button class="btn-cancel" (click)="cancel()" [disabled]="saving()">Cancel</button>
+        </div>
+      }
+    </div>
+
+    @if (error()) {
+      <p class="inline-error">{{ error() }}</p>
     }
-  </div>
 
-  <div class="profile-grid">
+    <div class="profile-grid">
 
-    <div class="profile-card">
-      <h3>Personal information</h3>
-      <div class="field-grid">
-        <div class="field">
-          <label>First name</label>
-          @if (editing()) { <input [(ngModel)]="draft.firstName" /> }
-          @else { <span>{{ user().firstName }}</span> }
-        </div>
-        <div class="field">
-          <label>Last name</label>
-          @if (editing()) { <input [(ngModel)]="draft.lastName" /> }
-          @else { <span>{{ user().lastName }}</span> }
-        </div>
-        <div class="field">
-          <label>Email</label>
-          @if (editing()) { <input [(ngModel)]="draft.email" /> }
-          @else { <span>{{ user().email }}</span> }
-        </div>
-        <div class="field">
-          <label>Phone</label>
-          @if (editing()) { <input [(ngModel)]="draft.phone" /> }
-          @else { <span>{{ user().phone }}</span> }
+      <div class="profile-card">
+        <h3>Personal information</h3>
+        <div class="field-grid">
+          <div class="field">
+            <label>First name</label>
+            @if (editing()) { <input [(ngModel)]="draft.firstName" /> }
+            @else { <span>{{ user()!.firstName }}</span> }
+          </div>
+          <div class="field">
+            <label>Last name</label>
+            @if (editing()) { <input [(ngModel)]="draft.lastName" /> }
+            @else { <span>{{ user()!.lastName }}</span> }
+          </div>
+          <div class="field">
+            <label>Email</label>
+            <span>{{ user()!.email }}</span>
+          </div>
+          <div class="field">
+            <label>Phone</label>
+            @if (editing()) { <input [(ngModel)]="draft.phoneNumber" /> }
+            @else { <span>{{ user()!.phoneNumber }}</span> }
+          </div>
         </div>
       </div>
-    </div>
 
-    <div class="profile-card">
-      <h3>Work information</h3>
-      <div class="field-grid">
-        <div class="field">
-          <label>Department</label>
-          <span>{{ user().department }}</span>
-        </div>
-        <div class="field">
-          <label>Job title</label>
-          <span>{{ user().jobTitle }}</span>
-        </div>
-        <div class="field">
-          <label>Join date</label>
-          <span>{{ user().joinDate }}</span>
+      <div class="profile-card">
+        <h3>Work information</h3>
+        <div class="field-grid">
+          <div class="field">
+            <label>Department</label>
+            <span>{{ user()!.department }}</span>
+          </div>
+          <div class="field">
+            <label>Job title</label>
+            <span>{{ user()!.jobTitle }}</span>
+          </div>
+          <div class="field">
+            <label>Member since</label>
+            <span>{{ user()!.createdAt }}</span>
+          </div>
         </div>
       </div>
-    </div>
 
-    <div class="profile-card">
-      <h3>Security</h3>
-      <div class="security-row">
-        <div>
-          <p class="sec-label">Password</p>
-          <p class="sec-value">Last changed 3 months ago</p>
+      <div class="profile-card">
+        <h3>Security</h3>
+        <div class="security-row">
+          <div>
+            <p class="sec-label">Password</p>
+            <p class="sec-value">Last changed 3 months ago</p>
+          </div>
+          <button class="btn-secondary">Change password</button>
         </div>
-        <button class="btn-secondary">Change password</button>
       </div>
-    </div>
 
-  </div>
+    </div>
+  }
 </div>

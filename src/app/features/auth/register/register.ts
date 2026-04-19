@@ -3,11 +3,12 @@ import { Router, RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { AuthService } from '../../../services/auth-service';
+import { DeptLabelPipe } from '../../../pipes/department-label.pipe';
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [FormsModule, RouterLink, MatIconModule],
+  imports: [FormsModule, RouterLink, MatIconModule , DeptLabelPipe],
   templateUrl: './register.html',
   styleUrl: './register.scss'
 })
@@ -22,7 +23,7 @@ export class Register {
   showPassword = false;
 
   // Populate from your Department enum values
-  departments = [ "HR",
+  departments = ["HR",
     "IT",
     "SALES",
     "MARKETING",
@@ -35,8 +36,9 @@ export class Register {
   constructor(
     private router: Router,
     private authService: AuthService
-  ) {}
-
+  ) { }
+  isLoading = false;
+  errorMessage = '';
   onSubmit() {
     this.authService.register({
       email: this.email,
@@ -48,7 +50,10 @@ export class Register {
       jobTitle: this.jobTitle
     }).subscribe({
       next: () => this.router.navigate(['/auth/login']),
-      error: (err) => console.log(err)
+      error: (err) => {
+        this.errorMessage = err.error?.message ?? 'Something went wrong. Please try again.';
+        this.isLoading = false;
+      }
     });
   }
 }

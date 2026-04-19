@@ -36,9 +36,9 @@
           <label>Department</label>
           <select [(ngModel)]="department">
             <option value="" disabled>Select...</option>
-            <option *ngFor="let dept of departments" [value]="dept">
-              {{ dept | titlecase }}
-            </option>
+            @for (dept of departments; track dept) {
+            <option [value]="dept">{{ dept | deptLabel }}</option>
+            }
           </select>
         </div>
         <div class="form-field">
@@ -57,7 +57,17 @@
         </div>
       </div>
 
-      <button class="btn-primary" (click)="onSubmit()">Create account</button>
+      @if (errorMessage) {
+      <p class="error-msg">{{ errorMessage }}</p>
+      }
+
+      <button class="btn-primary" (click)="onSubmit()" [disabled]="isLoading">
+        @if (isLoading) {
+        <mat-icon class="spin">sync</mat-icon>
+        } @else {
+        Create account
+        }
+      </button>
 
       <p class="switch">
         Already have an account?
