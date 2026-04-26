@@ -1,5 +1,5 @@
 export const environment = {
   production: false,
 //   apiUrl: 'https://amic-api.onrender.com'
-  apiUrl: 'http://localhost:8080'
+  apiUrl: 'http://192.168.8.181:8080'
 };
