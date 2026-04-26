@@ -26,6 +26,12 @@ export interface CreateUserPayload {
   role: string;
 }
 
+export interface BulkCreateResult {
+  created: number;
+  failed: number;
+  errors: string[];
+}
+
 @Injectable({ providedIn: 'root' })
 export class UserService {
 
@@ -39,6 +45,10 @@ export class UserService {
 
   create(payload: CreateUserPayload): Observable<UserRecord> {
     return this.http.post<UserRecord>(this.base, payload);
+  }
+
+  bulkCreate(payloads: CreateUserPayload[]): Observable<BulkCreateResult> {
+    return this.http.post<BulkCreateResult>(`${this.base}/bulk`, payloads);
   }
 
   delete(id: number): Observable<void> {

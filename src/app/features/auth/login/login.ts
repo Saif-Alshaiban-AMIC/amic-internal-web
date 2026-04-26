@@ -13,12 +13,13 @@ import { ToastService } from '../../../services/toast-service';
   templateUrl: './login.html',
   styleUrl: './login.scss'
 })
-
 export class Login {
 
-  email = '';
-  password = '';
+  email        = '';
+  password     = '';
   showPassword = false;
+  errorMsg     = '';
+  loading      = false;
 
   constructor(
     private router: Router,
@@ -27,18 +28,31 @@ export class Login {
   ) {}
 
   onSubmit() {
-    this.authService.login({
-      email: this.email,
-      password: this.password
-    }).subscribe({
+    if (!this.email || !this.password) return;
+    this.errorMsg = '';
+    this.loading  = true;
+
+    this.authService.login({ email: this.email, password: this.password }).subscribe({
       next: (response: AuthResponse) => {
+        this.loading = false;
+
+        // First-login: user must set their own password before getting tokens
+        if (response.mustChangePassword) {
+          this.router.navigate(['/auth/set-password'], {
+            queryParams: { token: response.setupToken, welcome: true }
+          });
+          return;
+        }
+
         this.authService.storeTokens(response);
         this.toast.success('Login successful');
         this.router.navigate(['/dashboard']);
       },
       error: (err) => {
-        this.toast.error('Login failed');
-        console.log(err);
+        this.loading  = false;
+        this.errorMsg = err.status === 429
+          ? 'Too many failed attempts. Please wait 10 minutes.'
+          : 'Invalid email or password.';
       }
     });
   }

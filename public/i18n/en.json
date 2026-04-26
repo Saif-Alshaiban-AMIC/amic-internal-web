@@ -58,10 +58,38 @@
     "PH_PHONE":       "+966 5X XXX XXXX",
     "PH_JOB":         "Software Engineer",
     "PH_SELECT":      "Select…",
+    "BULK_UPLOAD":    "Upload Excel",
+    "BULK_PREVIEW":   "Preview — {{ count }} rows found",
+    "BULK_CONFIRM":   "Import {{ count }} users",
+    "BULK_SUCCESS":   "{{ created }} users imported. {{ failed }} skipped.",
+    "BULK_COL_NAME":  "Name",
+    "BULK_COL_EMAIL": "Email",
+    "BULK_COL_DEPT":  "Department",
+    "BULK_COL_JOB":   "Job Title",
+    "BULK_COL_ROLE":  "Role",
+    "BULK_COL_STATUS":"Status",
+    "BULK_VALID":     "Ready",
+    "BULK_ERR_DOMAIN":"Invalid domain",
+    "BULK_ERR_EMPTY": "Missing required fields",
+    "BULK_TEMPLATE":  "Download template",
     "ERR_REQUIRED":   "Please fill in all required fields.",
     "ERR_DOMAIN":     "Email must be a company address ending in @alkhorayef.com",
     "ERR_DUPLICATE":  "An account with this email already exists.",
     "ERR_GENERIC":    "Something went wrong. Please try again."
+  },
+
+  "DEPT": {
+    "HUMAN_RESOURCES":      "Human Resources",
+    "IT_MIS":               "IT & MIS",
+    "FINANCE":              "Finance",
+    "BUSINESS_DEVELOPMENT": "Business Development",
+    "BUSINESS_PROCESS":     "Business Process",
+    "CONTRACTS_COMPLIANCE": "Contracts and Compliance",
+    "ENGINEERING_RD":       "Engineering & R&D",
+    "EXECUTIVE":            "Executive",
+    "IPP":                  "IPP",
+    "PROJECTS":             "Projects",
+    "SUPPLY_CHAIN":         "Supply Chain"
   },
 
   "HOME": {

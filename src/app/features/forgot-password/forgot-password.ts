@@ -1,42 +1,33 @@
 import { Component } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
-import { MatCardModule } from '@angular/material/card';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
+import { FormsModule } from '@angular/forms';
+import { MatIconModule } from '@angular/material/icon';
+import { AuthService } from '../../services/auth-service';
+
 @Component({
   standalone: true,
   selector: 'app-forgot-password',
-  imports: [
-    FormsModule,
-    MatCardModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule,
-    MatIconModule,
-    RouterLink
-  ],
+  imports: [FormsModule, RouterLink, MatIconModule],
   templateUrl: './forgot-password.html',
-  styleUrls: ['./forgot-password.scss']
+  styleUrl: './forgot-password.scss'
 })
 export class ForgotPasswordComponent {
 
-  email = '';
-  message = '';
+  email   = '';
+  sent    = false;
+  loading = false;
+  error   = '';
 
-  constructor(private http: HttpClient) {}
+  constructor(private authService: AuthService) {}
 
   onSubmit() {
-    this.http.post(
-      `http://localhost:8080/auth/forgot-password?email=${this.email}`,
-      {},
-      { responseType: 'text' }
-    ).subscribe({
-      next: (res) => this.message = res,
-      error: (e) => console.error(e)
+    if (!this.email) return;
+    this.loading = true;
+    this.error   = '';
+
+    this.authService.forgotPassword(this.email).subscribe({
+      next:  () => { this.loading = false; this.sent = true; },
+      error: () => { this.loading = false; this.error = 'Something went wrong. Please try again.'; }
     });
   }
 }

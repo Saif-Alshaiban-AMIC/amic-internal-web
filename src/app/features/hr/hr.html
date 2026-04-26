@@ -47,9 +47,20 @@
           [ngModel]="search()"
           (ngModelChange)="search.set($event)" />
       </div>
-      <button class="btn-primary" (click)="openForm()">
-        <mat-icon>person_add</mat-icon> {{ 'COMMON.ADD_USER' | translate }}
-      </button>
+      <div class="header-actions">
+        <!-- Hidden file input — triggered by the button below -->
+        <input id="bulk-file-input" type="file" accept=".xlsx,.xls" style="display:none"
+               (change)="onFileSelected($event)" />
+        <button class="btn-download" (click)="downloadTemplate()">
+          <mat-icon>download</mat-icon> {{ 'USER_FORM.BULK_TEMPLATE' | translate }}
+        </button>
+        <button class="btn-upload" (click)="triggerFileInput()">
+          <mat-icon>upload_file</mat-icon> {{ 'USER_FORM.BULK_UPLOAD' | translate }}
+        </button>
+        <button class="btn-primary" (click)="openForm()">
+          <mat-icon>person_add</mat-icon> {{ 'COMMON.ADD_USER' | translate }}
+        </button>
+      </div>
     </div>
 
     @if (loading()) {
@@ -100,6 +111,87 @@
   }
 
 </div>
+
+<!-- ── Bulk Upload Preview ─────────────────────────────────────────────────── -->
+@if (showBulk()) {
+  <div class="overlay" (click)="closeBulk()"></div>
+  <aside class="drawer drawer-wide">
+    <div class="drawer-header">
+      <h2>{{ 'USER_FORM.BULK_PREVIEW' | translate: { count: bulkRows().length } }}</h2>
+      <button class="btn-icon" (click)="closeBulk()"><mat-icon>close</mat-icon></button>
+    </div>
+
+    <div class="drawer-body bulk-body">
+      <!-- Summary chips -->
+      <div class="bulk-summary">
+        <span class="chip chip-ok">
+          <mat-icon>check_circle</mat-icon>
+          {{ validRows().length }} {{ 'USER_FORM.BULK_VALID' | translate }}
+        </span>
+        @if (invalidRows().length) {
+          <span class="chip chip-err">
+            <mat-icon>error_outline</mat-icon>
+            {{ invalidRows().length }} {{ 'USER_FORM.BULK_ERR_EMPTY' | translate }}
+          </span>
+        }
+      </div>
+
+      <!-- Preview table -->
+      <div class="bulk-table-wrap">
+        <table class="users-table bulk-table">
+          <thead>
+            <tr>
+              <th>{{ 'USER_FORM.BULK_COL_STATUS' | translate }}</th>
+              <th>{{ 'USER_FORM.BULK_COL_NAME'   | translate }}</th>
+              <th>{{ 'USER_FORM.BULK_COL_EMAIL'  | translate }}</th>
+              <th>{{ 'USER_FORM.BULK_COL_DEPT'   | translate }}</th>
+              <th>{{ 'USER_FORM.BULK_COL_JOB'    | translate }}</th>
+              <th>{{ 'USER_FORM.BULK_COL_ROLE'   | translate }}</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (row of bulkRows(); track row.email) {
+              <tr [class.row-err]="row._status === 'error'">
+                <td>
+                  @if (row._status === 'valid') {
+                    <mat-icon class="status-ok">check_circle</mat-icon>
+                  } @else {
+                    <span class="status-err-label">
+                      <mat-icon class="status-err">error_outline</mat-icon>
+                      {{ row._error }}
+                    </span>
+                  }
+                </td>
+                <td>{{ row.firstName }} {{ row.lastName }}</td>
+                <td class="muted">{{ row.email }}</td>
+                <td>{{ row.department | deptLabel }}</td>
+                <td class="muted">{{ row.jobTitle }}</td>
+                <td>
+                  <span class="badge" [class.badge-admin]="row.role === 'ADMIN'">{{ row.role }}</span>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="drawer-footer">
+      <button class="btn-secondary" (click)="closeBulk()" [disabled]="bulkUploading()">
+        {{ 'COMMON.CANCEL' | translate }}
+      </button>
+      <button class="btn-primary" (click)="confirmBulk()"
+              [disabled]="bulkUploading() || !validRows().length">
+        @if (bulkUploading()) {
+          <mat-icon class="spin">sync</mat-icon>
+        } @else {
+          <mat-icon>upload</mat-icon>
+          {{ 'USER_FORM.BULK_CONFIRM' | translate: { count: validRows().length } }}
+        }
+      </button>
+    </div>
+  </aside>
+}
 
 <!-- ── Add User drawer ─────────────────────────────────────────────────────── -->
 @if (showForm()) {

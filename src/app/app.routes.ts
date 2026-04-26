@@ -12,6 +12,7 @@ export const routes: Routes = [
   { path: 'auth/login',           loadComponent: () => import('./features/auth/login/login').then(m => m.Login) },
   { path: 'auth/register',        redirectTo: 'auth/login' },
   { path: 'auth/forgot-password', loadComponent: () => import('./features/forgot-password/forgot-password').then(m => m.ForgotPasswordComponent) },
+  { path: 'auth/set-password',   loadComponent: () => import('./features/set-password/set-password').then(m => m.SetPasswordComponent) },
 
   //  authGuard on the SHELL — protects ALL children at once
   {

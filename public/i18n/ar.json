@@ -58,10 +58,38 @@
     "PH_PHONE":       "+966 5X XXX XXXX",
     "PH_JOB":         "مهندس برمجيات",
     "PH_SELECT":      "اختر…",
+    "BULK_UPLOAD":    "رفع ملف Excel",
+    "BULK_PREVIEW":   "معاينة — {{ count }} صف",
+    "BULK_CONFIRM":   "استيراد {{ count }} مستخدم",
+    "BULK_SUCCESS":   "تم استيراد {{ created }} مستخدم. تم تخطي {{ failed }}.",
+    "BULK_COL_NAME":  "الاسم",
+    "BULK_COL_EMAIL": "البريد الإلكتروني",
+    "BULK_COL_DEPT":  "القسم",
+    "BULK_COL_JOB":   "المسمى الوظيفي",
+    "BULK_COL_ROLE":  "الدور",
+    "BULK_COL_STATUS":"الحالة",
+    "BULK_VALID":     "جاهز",
+    "BULK_ERR_DOMAIN":"نطاق غير صحيح",
+    "BULK_ERR_EMPTY": "حقول مطلوبة مفقودة",
+    "BULK_TEMPLATE":  "تحميل النموذج",
     "ERR_REQUIRED":   "يرجى ملء جميع الحقول المطلوبة.",
     "ERR_DOMAIN":     "يجب أن يكون البريد الإلكتروني بريد الشركة وينتهي بـ @alkhorayef.com",
     "ERR_DUPLICATE":  "يوجد حساب بهذا البريد الإلكتروني مسبقاً.",
     "ERR_GENERIC":    "حدث خطأ ما. يرجى المحاولة مرة أخرى."
+  },
+
+  "DEPT": {
+    "HUMAN_RESOURCES":      "الموارد البشرية",
+    "IT_MIS":               "تقنية المعلومات ونظم المعلومات الإدارية",
+    "FINANCE":              "المالية",
+    "BUSINESS_DEVELOPMENT": "تطوير الأعمال",
+    "BUSINESS_PROCESS":     "تطوير العمليات",
+    "CONTRACTS_COMPLIANCE": "العقود والامتثال",
+    "ENGINEERING_RD":       "الهندسة والبحث والتطوير",
+    "EXECUTIVE":            "الإدارة التنفيذية",
+    "IPP":                  "IPP",
+    "PROJECTS":             "المشاريع",
+    "SUPPLY_CHAIN":         "سلسلة الإمداد"
   },
 
   "HOME": {

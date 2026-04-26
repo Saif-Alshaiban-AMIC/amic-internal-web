@@ -3,11 +3,13 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from "../../environments/environment";
 
 export interface AuthResponse {
-  accessToken: string;
-  refreshToken: string;
-  tokenType: string;
-  expiresIn: number;
-  role: string;
+  accessToken:        string;
+  refreshToken:       string;
+  tokenType:          string;
+  expiresIn:          number;
+  role:               string;
+  mustChangePassword?: boolean;
+  setupToken?:        string;
 }
 
 @Injectable({ providedIn: 'root' })
@@ -23,6 +25,22 @@ export class AuthService {
 
   login(data: any) {
     return this.http.post<AuthResponse>(`${this.baseUrl}/auth/login`, data);
+  }
+
+  forgotPassword(email: string) {
+    return this.http.post(
+      `${this.baseUrl}/auth/forgot-password?email=${encodeURIComponent(email)}`,
+      {},
+      { responseType: 'text' }
+    );
+  }
+
+  setPassword(token: string, newPassword: string) {
+    return this.http.post(
+      `${this.baseUrl}/auth/reset-password?token=${encodeURIComponent(token)}&newPassword=${encodeURIComponent(newPassword)}`,
+      {},
+      { responseType: 'text' }
+    );
   }
 
   refresh(refreshToken: string) {

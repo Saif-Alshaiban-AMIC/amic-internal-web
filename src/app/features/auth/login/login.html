@@ -30,7 +30,13 @@
         </div>
       </div>
 
-      <button class="btn-primary" (click)="onSubmit()">Sign in</button>
+      @if (errorMsg) {
+        <p class="error-msg">{{ errorMsg }}</p>
+      }
+
+      <button class="btn-primary" (click)="onSubmit()" [disabled]="loading">
+        {{ loading ? 'Signing in…' : 'Sign in' }}
+      </button>
 
     </div>
 
