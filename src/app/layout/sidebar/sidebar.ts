@@ -23,7 +23,7 @@ export class Sidebar {
   currentLang = signal<'en' | 'ar'>('en');
 
   readonly navItems: NavItem[] = [
-    { label: 'NAV.DASHBOARD', icon: 'dashboard', route: '/dashboard' },
+    { label: 'NAV.DASHBOARD', icon: 'home', route: '/dashboard' },
     { label: 'NAV.HR', icon: 'people', route: '/hr' },
     { label: 'NAV.IT', icon: 'computer', route: '/it' },
     { label: 'NAV.FINANCE', icon: 'account_balance', route: '/finance' },

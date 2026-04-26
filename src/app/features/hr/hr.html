@@ -1,1 +1,170 @@
-<p>hr works!</p>
+<div class="dept-page">
+
+  <!-- Page header -->
+  <div class="page-header">
+    <div class="header-icon"><mat-icon>people</mat-icon></div>
+    <div>
+      <h1>{{ 'HR.TITLE' | translate }}</h1>
+      <p class="subtitle">{{ 'HR.SUBTITLE' | translate }}</p>
+    </div>
+  </div>
+
+  <!-- Tabs -->
+  <div class="tabs">
+    <button class="tab-btn" [class.active]="activeTab() === 'services'" (click)="activeTab.set('services')">
+      <mat-icon>apps</mat-icon> {{ 'COMMON.SERVICES' | translate }}
+    </button>
+    <button class="tab-btn" [class.active]="activeTab() === 'users'" (click)="activeTab.set('users')">
+      <mat-icon>manage_accounts</mat-icon> {{ 'HR.TAB_USERS' | translate }}
+    </button>
+  </div>
+
+  <!-- ── Services tab ──────────────────────────────────────────────────────── -->
+  @if (activeTab() === 'services') {
+    <div class="services-grid">
+      @for (card of services; track card.titleKey) {
+        <div class="service-card" [class.unavailable]="!card.available" (click)="openService(card)">
+          <div class="card-icon"><mat-icon>{{ card.icon }}</mat-icon></div>
+          <p class="card-title">{{ card.titleKey | translate }}</p>
+          <p class="card-desc">{{ card.descKey | translate }}</p>
+          @if (!card.available) {
+            <span class="card-badge">{{ 'COMMON.COMING_SOON' | translate }}</span>
+          } @else {
+            <mat-icon class="card-arrow">arrow_forward</mat-icon>
+          }
+        </div>
+      }
+    </div>
+  }
+
+  <!-- ── User Management tab ───────────────────────────────────────────────── -->
+  @if (activeTab() === 'users') {
+    <div class="users-header">
+      <div class="search-bar">
+        <mat-icon class="search-icon">search</mat-icon>
+        <input
+          [placeholder]="'COMMON.SEARCH' | translate"
+          [ngModel]="search()"
+          (ngModelChange)="search.set($event)" />
+      </div>
+      <button class="btn-primary" (click)="openForm()">
+        <mat-icon>person_add</mat-icon> {{ 'COMMON.ADD_USER' | translate }}
+      </button>
+    </div>
+
+    @if (loading()) {
+      <div class="state-center"><mat-icon class="spin">sync</mat-icon></div>
+    } @else {
+      <div class="table-card">
+        <table class="users-table">
+          <thead>
+            <tr>
+              <th>{{ 'USER_TABLE.COL_USER'   | translate }}</th>
+              <th>{{ 'USER_TABLE.COL_EMAIL'  | translate }}</th>
+              <th>{{ 'USER_TABLE.COL_DEPT'   | translate }}</th>
+              <th>{{ 'USER_TABLE.COL_JOB'    | translate }}</th>
+              <th>{{ 'USER_TABLE.COL_ROLE'   | translate }}</th>
+              <th>{{ 'USER_TABLE.COL_JOINED' | translate }}</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (u of filtered(); track u.id) {
+              <tr>
+                <td>
+                  <div class="user-cell">
+                    <div class="avatar">{{ initials(u) }}</div>
+                    <span class="full-name">{{ u.firstName }} {{ u.lastName }}</span>
+                  </div>
+                </td>
+                <td class="muted">{{ u.email }}</td>
+                <td>{{ u.department | deptLabel }}</td>
+                <td class="muted">{{ u.jobTitle }}</td>
+                <td>
+                  <span class="badge" [class.badge-admin]="u.role === 'ADMIN'">{{ u.role }}</span>
+                </td>
+                <td class="muted">{{ u.createdAt | date: 'MMM d, y' }}</td>
+                <td>
+                  <button class="btn-icon danger" (click)="remove(u)">
+                    <mat-icon>delete_outline</mat-icon>
+                  </button>
+                </td>
+              </tr>
+            } @empty {
+              <tr><td colspan="7" class="empty-row">{{ 'COMMON.NO_USERS' | translate }}</td></tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    }
+  }
+
+</div>
+
+<!-- ── Add User drawer ─────────────────────────────────────────────────────── -->
+@if (showForm()) {
+  <div class="overlay" (click)="closeForm()"></div>
+  <aside class="drawer">
+    <div class="drawer-header">
+      <h2>{{ 'USER_FORM.TITLE' | translate }}</h2>
+      <button class="btn-icon" (click)="closeForm()"><mat-icon>close</mat-icon></button>
+    </div>
+    <div class="drawer-body">
+      <div class="name-row">
+        <div class="form-field">
+          <label>{{ 'USER_FORM.FIRST_NAME' | translate }} <span class="req">{{ 'COMMON.REQUIRED' | translate }}</span></label>
+          <input [placeholder]="'USER_FORM.PH_FIRST' | translate" [(ngModel)]="form.firstName" />
+        </div>
+        <div class="form-field">
+          <label>{{ 'USER_FORM.LAST_NAME' | translate }} <span class="req">{{ 'COMMON.REQUIRED' | translate }}</span></label>
+          <input [placeholder]="'USER_FORM.PH_LAST' | translate" [(ngModel)]="form.lastName" />
+        </div>
+      </div>
+      <div class="form-field">
+        <label>{{ 'USER_FORM.EMAIL' | translate }} <span class="req">{{ 'COMMON.REQUIRED' | translate }}</span></label>
+        <input type="email" [placeholder]="'USER_FORM.PH_EMAIL' | translate" [(ngModel)]="form.email" />
+        <span class="field-hint">@alkhorayef.com</span>
+      </div>
+      <div class="form-field">
+        <label>{{ 'USER_FORM.PASSWORD' | translate }} <span class="req">{{ 'COMMON.REQUIRED' | translate }}</span></label>
+        <input type="password" [placeholder]="'USER_FORM.PH_PASSWORD' | translate" [(ngModel)]="form.password" />
+      </div>
+      <div class="form-field">
+        <label>{{ 'USER_FORM.PHONE' | translate }}</label>
+        <input type="tel" [placeholder]="'USER_FORM.PH_PHONE' | translate" [(ngModel)]="form.phoneNumber" />
+      </div>
+      <div class="name-row">
+        <div class="form-field">
+          <label>{{ 'USER_FORM.DEPARTMENT' | translate }}</label>
+          <select [(ngModel)]="form.department">
+            <option value="" disabled>{{ 'USER_FORM.PH_SELECT' | translate }}</option>
+            @for (d of departments; track d) {
+              <option [value]="d">{{ d | deptLabel }}</option>
+            }
+          </select>
+        </div>
+        <div class="form-field">
+          <label>{{ 'USER_FORM.ROLE' | translate }}</label>
+          <select [(ngModel)]="form.role">
+            <option value="USER">{{ 'USER_FORM.ROLE_USER' | translate }}</option>
+            <option value="ADMIN">{{ 'USER_FORM.ROLE_ADMIN' | translate }}</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-field">
+        <label>{{ 'USER_FORM.JOB_TITLE' | translate }}</label>
+        <input [placeholder]="'USER_FORM.PH_JOB' | translate" [(ngModel)]="form.jobTitle" />
+      </div>
+      @if (formErrorKey) {
+        <p class="form-error">{{ formErrorKey | translate }}</p>
+      }
+    </div>
+    <div class="drawer-footer">
+      <button class="btn-secondary" (click)="closeForm()" [disabled]="saving()">{{ 'COMMON.CANCEL' | translate }}</button>
+      <button class="btn-primary" (click)="submit()" [disabled]="saving()">
+        @if (saving()) { <mat-icon class="spin">sync</mat-icon> }
+        @else { {{ 'COMMON.CREATE_USER' | translate }} }
+      </button>
+    </div>
+  </aside>
+}

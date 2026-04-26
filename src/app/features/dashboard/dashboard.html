@@ -1,56 +1,62 @@
-<div class="dashboard">
+<div class="home-page">
 
-  <!-- HEADER -->
-  <div class="header">
-    <h1>Dashboard</h1>
-  
-  </div>
+  <!-- ── HERO ─────────────────────────────────────────────────────────── -->
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="hero-text">
+        <p class="hero-date">{{ today | date:'EEEE, MMMM d, y' }}</p>
+        <h1 class="hero-greeting">
+          {{ greetingKey() | translate }}@if (firstName()) {<span class="hero-name">, {{ firstName() }}</span>}
+        </h1>
+        <p class="hero-subtitle">{{ 'HOME.HERO_SUBTITLE' | translate }}</p>
+      </div>
+      <div class="hero-graphic" aria-hidden="true">
+        <mat-icon class="hero-icon">home_work</mat-icon>
+      </div>
+    </div>
+  </section>
 
-  <!-- CARDS -->
-  <div class="cards">
+  <!-- ── ANNOUNCEMENTS ─────────────────────────────────────────────────── -->
+  <section class="section announcements-section">
+    <h2 class="section-title">
+      <mat-icon>campaign</mat-icon>
+      {{ 'HOME.ANNOUNCEMENTS' | translate }}
+    </h2>
 
-    <mat-card class="card">
-      <mat-icon>people</mat-icon>
-      <h2>1,240</h2>
-      <p>Users</p>
-    </mat-card>
+    <div class="announcements-scroll">
+      @for (ann of announcements; track ann.titleKey) {
+        <article class="ann-card">
+          <div class="ann-icon-wrap">
+            <mat-icon>{{ ann.icon }}</mat-icon>
+          </div>
+          <div class="ann-content">
+            <span class="ann-tag">{{ ann.tagKey | translate }}</span>
+            <h3 class="ann-title">{{ ann.titleKey | translate }}</h3>
+            <p  class="ann-body" >{{ ann.bodyKey  | translate }}</p>
+          </div>
+        </article>
+      }
+    </div>
+  </section>
 
-    <mat-card class="card">
-      <mat-icon>work</mat-icon>
-      <h2>320</h2>
-      <p>Jobs</p>
-    </mat-card>
+  <!-- ── QUICK ACCESS ───────────────────────────────────────────────────── -->
+  <section class="section quick-section">
+    <h2 class="section-title">
+      <mat-icon>apps</mat-icon>
+      {{ 'HOME.QUICK_ACCESS' | translate }}
+    </h2>
 
-    <mat-card class="card">
-      <mat-icon>assignment</mat-icon>
-      <h2>5,600</h2>
-      <p>Applications</p>
-    </mat-card>
-
-  </div>
-
-  <!-- TABLE -->
-  <mat-card class="table-card">
-
-    <h3>Recent Activity</h3>
-
-    <table mat-table [dataSource]="dataSource" class="table">
-
-      <ng-container matColumnDef="name">
-        <th mat-header-cell *matHeaderCellDef>Name</th>
-        <td mat-cell *matCellDef="let row">{{row.name}}</td>
-      </ng-container>
-
-      <ng-container matColumnDef="status">
-        <th mat-header-cell *matHeaderCellDef>Status</th>
-        <td mat-cell *matCellDef="let row">{{row.status}}</td>
-      </ng-container>
-
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-
-    </table>
-
-  </mat-card>
+    <div class="quick-grid">
+      @for (link of quickLinks; track link.route) {
+        <a class="quick-card" [routerLink]="link.route">
+          <div class="quick-icon-wrap" [style.background]="link.color + '1A'" [style.color]="link.color">
+            <mat-icon>{{ link.icon }}</mat-icon>
+          </div>
+          <span class="quick-label">{{ link.labelKey | translate }}</span>
+          <mat-icon class="quick-arrow">chevron_right</mat-icon>
+        </a>
+      }
+    </div>
+  </section>
 
 </div>

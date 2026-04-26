@@ -2,11 +2,12 @@ import { Component, signal, computed, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { ProfileService, ProfileUpdateRequest, UserProfile } from '../../../services/profile-service';
+import { DeptLabelPipe } from '../../../pipes/department-label.pipe';
 
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [FormsModule, MatIconModule],
+  imports: [FormsModule, MatIconModule, DeptLabelPipe],
   templateUrl: './profile.html',
   styleUrl: './profile.scss'
 })
@@ -20,7 +21,7 @@ export class Profile implements OnInit {
 
   readonly initials = computed(() => {
     const u = this.user();
-    return u ? `${u.firstName[0]}${u.lastName[0]}` : '';
+    return u ? `${u.firstName[0].toUpperCase()}${u.lastName[0].toUpperCase()}` : '';
   });
 
   draft: ProfileUpdateRequest = { firstName: '', lastName: '', phoneNumber: '' };

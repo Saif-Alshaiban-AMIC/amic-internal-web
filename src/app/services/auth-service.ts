@@ -2,11 +2,18 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from "../../environments/environment";
 
+export interface AuthResponse {
+  accessToken: string;
+  refreshToken: string;
+  tokenType: string;
+  expiresIn: number;
+  role: string;
+}
+
 @Injectable({ providedIn: 'root' })
 export class AuthService {
 
   private baseUrl = environment.apiUrl;
-
 
   constructor(private http: HttpClient) { }
 
@@ -15,10 +22,26 @@ export class AuthService {
   }
 
   login(data: any) {
-    return this.http.post(`${this.baseUrl}/auth/login`, data, { responseType: 'text' });
+    return this.http.post<AuthResponse>(`${this.baseUrl}/auth/login`, data);
+  }
+
+  refresh(refreshToken: string) {
+    return this.http.post<AuthResponse>(`${this.baseUrl}/auth/refresh`, { refreshToken });
   }
 
   logout() {
-    localStorage.removeItem('token');
+    const refreshToken = sessionStorage.getItem('refreshToken');
+    if (refreshToken) {
+      this.http.post(`${this.baseUrl}/auth/logout`, { refreshToken }).subscribe({ error: () => {} });
+    }
+    sessionStorage.removeItem('token');
+    sessionStorage.removeItem('refreshToken');
+    sessionStorage.removeItem('role');
+  }
+
+  storeTokens(response: AuthResponse) {
+    sessionStorage.setItem('token', response.accessToken);
+    sessionStorage.setItem('refreshToken', response.refreshToken);
+    sessionStorage.setItem('role', response.role);
   }
 }

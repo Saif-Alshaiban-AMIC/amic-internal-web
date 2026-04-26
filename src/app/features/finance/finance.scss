@@ -1,0 +1,24 @@
+@use '../../../styles/variables' as *;
+@use '../../../styles/service-grid' as *;
+
+.dept-page { max-width: 1100px; }
+
+.page-header {
+  display: flex;
+  align-items: center;
+  gap: $space-md;
+  margin-bottom: $space-xl;
+
+  .header-icon {
+    width: 52px; height: 52px;
+    border-radius: $radius-md;
+    background: rgba($color-peach, 0.2);
+    display: flex; align-items: center; justify-content: center;
+    color: darken($color-peach, 15%);
+    flex-shrink: 0;
+    mat-icon { font-size: 26px; }
+  }
+
+  h1 { font-size: $font-size-xl; font-weight: 700; color: $color-text; margin: 0 0 2px; }
+  .subtitle { font-size: $font-size-sm; color: $color-text-muted; margin: 0; }
+}

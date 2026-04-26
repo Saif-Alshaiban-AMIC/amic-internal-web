@@ -1,6 +1,7 @@
 import { CanActivateFn, Router } from '@angular/router';
 import { inject, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
+import { isTokenExpired } from '../core/token-utils';
 
 export const redirectGuard: CanActivateFn = () => {
   const router = inject(Router);
@@ -11,7 +12,8 @@ export const redirectGuard: CanActivateFn = () => {
     return false;
   }
 
-  const token = localStorage.getItem('token');
-  router.navigate([token ? '/dashboard' : '/auth/login']);
+  const token = sessionStorage.getItem('token');
+  const isValid = token && !isTokenExpired(token);
+  router.navigate([isValid ? '/dashboard' : '/auth/login']);
   return false;
 };

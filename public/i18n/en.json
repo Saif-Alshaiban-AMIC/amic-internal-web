@@ -4,14 +4,162 @@
   "PASSWORD": "Password",
   "LOGOUT": "Logout",
   "REGISTER": "Register",
+
   "NAV": {
-    "DASHBOARD": "Dashboard",
-    "HR": "HR",
-    "IT": "IT",
-    "FINANCE": "Finance",
-    "PROCUREMENT": "Procurement",
-    "POLICIES": "Policies",
-    "SERVICE_DESK": "Service Desk",
+    "DASHBOARD":       "Home",
+    "HR":              "HR",
+    "IT":              "IT & MIS",
+    "FINANCE":         "Finance",
+    "PROCUREMENT":     "Supply Chain",
+    "POLICIES":        "Policies",
+    "SERVICE_DESK":    "Service Desk",
     "IMPORTANT_LINKS": "Important Links"
+  },
+
+  "COMMON": {
+    "SERVICES":       "Services",
+    "COMING_SOON":    "Coming soon",
+    "CANCEL":         "Cancel",
+    "SAVE":           "Save changes",
+    "ADD_USER":       "Add user",
+    "CREATE_USER":    "Create user",
+    "REMOVE_USER":    "Remove user",
+    "SEARCH":         "Search by name, email, or department…",
+    "NO_USERS":       "No users found.",
+    "LOADING":        "Loading…",
+    "REQUIRED":       "*"
+  },
+
+  "USER_TABLE": {
+    "COL_USER":       "User",
+    "COL_EMAIL":      "Email",
+    "COL_DEPT":       "Department",
+    "COL_JOB":        "Job Title",
+    "COL_ROLE":       "Role",
+    "COL_JOINED":     "Joined"
+  },
+
+  "USER_FORM": {
+    "TITLE":          "Add new user",
+    "FIRST_NAME":     "First name",
+    "LAST_NAME":      "Last name",
+    "EMAIL":          "Work email",
+    "PASSWORD":       "Password",
+    "PHONE":          "Phone number",
+    "DEPARTMENT":     "Department",
+    "JOB_TITLE":      "Job title",
+    "ROLE":           "Role",
+    "ROLE_USER":      "User",
+    "ROLE_ADMIN":     "Admin",
+    "PH_FIRST":       "Ahmad",
+    "PH_LAST":        "Hassan",
+    "PH_EMAIL":       "ahmad@alkhorayef.com",
+    "PH_PASSWORD":    "••••••••",
+    "PH_PHONE":       "+966 5X XXX XXXX",
+    "PH_JOB":         "Software Engineer",
+    "PH_SELECT":      "Select…",
+    "ERR_REQUIRED":   "Please fill in all required fields.",
+    "ERR_DOMAIN":     "Email must be a company address ending in @alkhorayef.com",
+    "ERR_DUPLICATE":  "An account with this email already exists.",
+    "ERR_GENERIC":    "Something went wrong. Please try again."
+  },
+
+  "HOME": {
+    "GREETING_MORNING":   "Good morning",
+    "GREETING_AFTERNOON": "Good afternoon",
+    "GREETING_EVENING":   "Good evening",
+    "HERO_SUBTITLE":      "Here's what's happening at AMIC today.",
+    "ANNOUNCEMENTS":      "Announcements",
+    "QUICK_ACCESS":       "Quick Access",
+    "ANN_1_TITLE":        "System Maintenance Window",
+    "ANN_1_BODY":         "Planned maintenance on Sunday, April 27 from 10 PM – 2 AM. Some services may be unavailable.",
+    "ANN_2_TITLE":        "Ramadan Working Hours",
+    "ANN_2_BODY":         "Working hours have been adjusted to 8:00 AM – 3:00 PM throughout the holy month.",
+    "ANN_3_TITLE":        "Performance Reviews Open",
+    "ANN_3_BODY":         "Q1 performance self-assessments are now open. Please submit by May 15.",
+    "ANN_4_TITLE":        "New Policy Published",
+    "ANN_4_BODY":         "The updated Remote Work Policy is now available in the Policies section.",
+    "TAG_MAINT":          "Maintenance",
+    "TAG_HR":             "HR",
+    "TAG_POLICY":         "Policy"
+  },
+
+  "HR": {
+    "TITLE":    "Human Resources",
+    "SUBTITLE": "Employee services, accounts, and HR operations",
+    "TAB_USERS": "User Management",
+    "USERS_TITLE": "{{ count }} total users",
+    "SVC_USER_MGT":   { "TITLE": "User Management",      "DESC": "Create, manage, and deactivate employee accounts." },
+    "SVC_LEAVE":      { "TITLE": "Leave Request",         "DESC": "Submit and track annual, sick, and emergency leave." },
+    "SVC_ONBOARDING": { "TITLE": "Onboarding",            "DESC": "Manage new hire setup, documents, and orientation." },
+    "SVC_PERF":       { "TITLE": "Performance Review",    "DESC": "Initiate and track employee performance evaluations." },
+    "SVC_TRAINING":   { "TITLE": "Training & Development","DESC": "Browse and enroll in training programs and courses." },
+    "SVC_PAYROLL":    { "TITLE": "Payroll",               "DESC": "View payslips, allowances, and deduction summaries." }
+  },
+
+  "IT": {
+    "TITLE":    "IT & MIS",
+    "SUBTITLE": "Technology support, system access, and infrastructure services",
+    "SVC_SUPPORT":   { "TITLE": "IT Support",          "DESC": "Submit a helpdesk ticket for hardware or software issues." },
+    "SVC_EQUIPMENT": { "TITLE": "Equipment Request",   "DESC": "Request laptops, peripherals, and other IT equipment." },
+    "SVC_ACCESS":    { "TITLE": "System Access",       "DESC": "Request access to internal systems and applications." },
+    "SVC_LICENSE":   { "TITLE": "Software License",   "DESC": "Request or renew software licenses for your team." },
+    "SVC_NETWORK":   { "TITLE": "Network & VPN",      "DESC": "Manage VPN access and report network connectivity issues." },
+    "SVC_SECURITY":  { "TITLE": "Security Incident",  "DESC": "Report a cybersecurity incident or suspicious activity." }
+  },
+
+  "FINANCE": {
+    "TITLE":    "Finance",
+    "SUBTITLE": "Budgets, expenses, invoicing, and financial reporting",
+    "SVC_BUDGET":   { "TITLE": "Budget Request",     "DESC": "Submit and track departmental budget requests and approvals." },
+    "SVC_EXPENSE":  { "TITLE": "Expense Claim",      "DESC": "Submit expense claims and reimbursement requests." },
+    "SVC_INVOICE":  { "TITLE": "Invoice Processing", "DESC": "Track vendor invoices and payment status." },
+    "SVC_REPORTS":  { "TITLE": "Financial Reports",  "DESC": "Access monthly and quarterly financial statements." },
+    "SVC_PO":       { "TITLE": "Purchase Order",     "DESC": "Create and manage purchase orders for departmental needs." },
+    "SVC_COST":     { "TITLE": "Cost Centre",        "DESC": "Review cost centre allocations and spending summaries." }
+  },
+
+  "SUPPLY_CHAIN": {
+    "TITLE":    "Supply Chain",
+    "SUBTITLE": "Procurement, vendor management, and inventory services",
+    "SVC_PROC":     { "TITLE": "Procurement Request", "DESC": "Submit requests for goods and services procurement." },
+    "SVC_VENDOR":   { "TITLE": "Vendor Management",   "DESC": "View, onboard, and evaluate approved vendors." },
+    "SVC_CONTRACT": { "TITLE": "Contract Initiation", "DESC": "Initiate a new vendor or service contract." },
+    "SVC_DELIVERY": { "TITLE": "Delivery Tracking",   "DESC": "Track the status of ordered goods and deliveries." },
+    "SVC_INVENTORY":{ "TITLE": "Inventory",           "DESC": "View current stock levels and manage inventory records." },
+    "SVC_SPEND":    { "TITLE": "Spend Analysis",      "DESC": "Review procurement spend reports and supplier performance." }
+  },
+
+  "POLICIES": {
+    "TITLE":    "Policies",
+    "SUBTITLE": "Company policies, compliance frameworks, and conduct guidelines",
+    "SVC_HR":         { "TITLE": "HR Policies",         "DESC": "Leave, attendance, code of conduct, and employment policies." },
+    "SVC_IT":         { "TITLE": "IT Policies",          "DESC": "Acceptable use, data security, and software policies." },
+    "SVC_FINANCE":    { "TITLE": "Finance Policies",     "DESC": "Expense, procurement, and budget approval policies." },
+    "SVC_HSE":        { "TITLE": "HSE Policies",         "DESC": "Health, safety, and environmental compliance policies." },
+    "SVC_CONDUCT":    { "TITLE": "Code of Conduct",      "DESC": "Ethics, integrity, and professional conduct guidelines." },
+    "SVC_COMPLIANCE": { "TITLE": "Compliance Policies",  "DESC": "Regulatory compliance and legal obligation frameworks." }
+  },
+
+  "SERVICE_DESK": {
+    "TITLE":    "Service Desk",
+    "SUBTITLE": "Support tickets, service catalogue, and request management",
+    "SVC_OPEN":        { "TITLE": "Open a Ticket",     "DESC": "Submit a new support request for any department." },
+    "SVC_MY":          { "TITLE": "My Tickets",         "DESC": "View and track the status of your submitted tickets." },
+    "SVC_DASHBOARD":   { "TITLE": "Ticket Dashboard",  "DESC": "Overview of open, in-progress, and resolved tickets." },
+    "SVC_CATALOGUE":   { "TITLE": "Service Catalogue", "DESC": "Browse all available services and submit a request." },
+    "SVC_ANNOUNCE":    { "TITLE": "Announcements",      "DESC": "Company-wide announcements and service notifications." },
+    "SVC_FEEDBACK":    { "TITLE": "Feedback",           "DESC": "Rate your service experience and provide suggestions." }
+  },
+
+  "IMPORTANT_LINKS": {
+    "TITLE":    "Important Links",
+    "SUBTITLE": "Quick access to systems, tools, and external portals",
+    "SVC_ERP":      { "TITLE": "ERP System",          "DESC": "Access the enterprise resource planning system." },
+    "SVC_CLOUD":    { "TITLE": "Cloud Storage",       "DESC": "SharePoint, OneDrive, and shared file repositories." },
+    "SVC_TEAMS":    { "TITLE": "Teams / Meet",        "DESC": "Launch Microsoft Teams or Google Meet for video calls." },
+    "SVC_PM":       { "TITLE": "Project Management",  "DESC": "Access Jira, Asana, or the internal project tracker." },
+    "SVC_EMAIL":    { "TITLE": "Company Email",       "DESC": "Open Outlook or the corporate webmail portal." },
+    "SVC_PORTAL":   { "TITLE": "Employee Portal",     "DESC": "Access payslips, HR forms, and self-service features." }
   }
 }

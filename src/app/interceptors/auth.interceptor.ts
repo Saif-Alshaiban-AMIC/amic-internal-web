@@ -1,21 +1,77 @@
-export interface Auth {}
-import { HttpInterceptorFn } from '@angular/common/http';
+import { HttpInterceptorFn, HttpRequest, HttpHandlerFn, HttpErrorResponse } from '@angular/common/http';
+import { inject } from '@angular/core';
+import { Router } from '@angular/router';
+import { BehaviorSubject, EMPTY, throwError } from 'rxjs';
+import { catchError, filter, switchMap, take } from 'rxjs/operators';
+import { AuthService } from '../services/auth-service';
+import { isTokenExpired } from '../core/token-utils';
 
-export const authInterceptor: HttpInterceptorFn = (req, next) => {
+const AUTH_URLS = ['/auth/login', '/auth/register', '/auth/forgot-password', '/auth/refresh', '/auth/logout'];
 
-   if (req.url.includes('/auth/login') || req.url.includes('/auth/register') || req.url.includes('/auth/forgot-password')) {
+let isRefreshing = false;
+const refreshDone$ = new BehaviorSubject<string | null>(null);
+
+function addBearer(req: HttpRequest<unknown>, token: string): HttpRequest<unknown> {
+  return req.clone({ setHeaders: { Authorization: `Bearer ${token}` } });
+}
+
+export const authInterceptor: HttpInterceptorFn = (req: HttpRequest<unknown>, next: HttpHandlerFn) => {
+  if (AUTH_URLS.some(url => req.url.includes(url))) {
     return next(req);
   }
 
-  const token = localStorage.getItem('token');
+  const router = inject(Router);
+  const authService = inject(AuthService);
 
-  if (token) {
-    req = req.clone({
-      setHeaders: {
-        Authorization: `Bearer ${token}`
-      }
-    });
+  const token = sessionStorage.getItem('token');
+
+  if (!token || isTokenExpired(token)) {
+    sessionStorage.removeItem('token');
+    sessionStorage.removeItem('refreshToken');
+    sessionStorage.removeItem('role');
+    router.navigate(['/auth/login']);
+    return EMPTY;
   }
 
-  return next(req);
+  return next(addBearer(req, token)).pipe(
+    catchError((error: HttpErrorResponse) => {
+      if (error.status !== 401) {
+        return throwError(() => error);
+      }
+
+      const refreshToken = sessionStorage.getItem('refreshToken');
+      if (!refreshToken) {
+        router.navigate(['/auth/login']);
+        return EMPTY;
+      }
+
+      if (isRefreshing) {
+        return refreshDone$.pipe(
+          filter((t): t is string => t !== null),
+          take(1),
+          switchMap(newToken => next(addBearer(req, newToken)))
+        );
+      }
+
+      isRefreshing = true;
+      refreshDone$.next(null);
+
+      return authService.refresh(refreshToken).pipe(
+        switchMap(response => {
+          isRefreshing = false;
+          authService.storeTokens(response);
+          refreshDone$.next(response.accessToken);
+          return next(addBearer(req, response.accessToken));
+        }),
+        catchError(refreshError => {
+          isRefreshing = false;
+          sessionStorage.removeItem('token');
+          sessionStorage.removeItem('refreshToken');
+          sessionStorage.removeItem('role');
+          router.navigate(['/auth/login']);
+          return EMPTY;
+        })
+      );
+    })
+  );
 };

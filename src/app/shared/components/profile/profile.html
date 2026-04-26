@@ -10,7 +10,7 @@
       <div class="avatar-circle">{{ initials() }}</div>
       <div>
         <h1>{{ user()!.firstName }} {{ user()!.lastName }}</h1>
-        <p>{{ user()!.jobTitle }} · {{ user()!.department }} Department</p>
+        <p>{{ user()!.jobTitle }} · {{ user()!.department | deptLabel }} Department</p>
       </div>
       @if (!editing()) {
         <button class="btn-edit" (click)="startEdit()">
@@ -63,7 +63,7 @@
         <div class="field-grid">
           <div class="field">
             <label>Department</label>
-            <span>{{ user()!.department }}</span>
+            <span>{{ user()!.department | deptLabel }}</span>
           </div>
           <div class="field">
             <label>Job title</label>

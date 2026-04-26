@@ -1,0 +1,142 @@
+@use './variables' as *;
+
+// ── Shared page header ────────────────────────────────────────────────────────
+
+.page-header {
+  margin-bottom: $space-xl;
+
+  h1 {
+    font-size: $font-size-xl;
+    font-weight: 700;
+    color: $color-text;
+    margin: 0 0 4px;
+  }
+
+  .subtitle {
+    font-size: $font-size-sm;
+    color: $color-text-muted;
+    margin: 0;
+  }
+}
+
+// ── Tabs ──────────────────────────────────────────────────────────────────────
+
+.tabs {
+  display: flex;
+  gap: 2px;
+  border-bottom: 2px solid rgba($color-dark, 0.08);
+  margin-bottom: $space-xl;
+}
+
+.tab-btn {
+  display: flex;
+  align-items: center;
+  gap: $space-xs;
+  padding: $space-sm $space-md;
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -2px;
+  font-family: inherit;
+  font-size: $font-size-sm;
+  font-weight: 500;
+  color: $color-text-muted;
+  cursor: pointer;
+  transition: color 0.15s, border-color 0.15s;
+
+  mat-icon { font-size: 18px; width: 18px; height: 18px; }
+
+  &:hover { color: $color-text; }
+
+  &.active {
+    color: $color-dark;
+    border-bottom-color: $color-dark;
+  }
+}
+
+// ── Services grid ─────────────────────────────────────────────────────────────
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: $space-lg;
+}
+
+.service-card {
+  background: $color-surface;
+  border-radius: $radius-md;
+  padding: $space-lg;
+  box-shadow: $shadow-sm;
+  border: 1.5px solid transparent;
+  cursor: pointer;
+  transition: box-shadow 0.2s, border-color 0.2s, transform 0.15s;
+  display: flex;
+  flex-direction: column;
+  gap: $space-sm;
+  position: relative;
+
+  &:hover:not(.unavailable) {
+    box-shadow: $shadow-md;
+    border-color: rgba($color-dark, 0.12);
+    transform: translateY(-2px);
+  }
+
+  &.unavailable {
+    cursor: default;
+    opacity: 0.65;
+  }
+
+  .card-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: $radius-sm;
+    background: rgba($color-peach, 0.18);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: darken($color-peach, 15%);
+
+    mat-icon { font-size: 22px; }
+  }
+
+  .card-title {
+    font-size: $font-size-md;
+    font-weight: 600;
+    color: $color-text;
+    margin: 0;
+  }
+
+  .card-desc {
+    font-size: $font-size-sm;
+    color: $color-text-muted;
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  .card-badge {
+    display: inline-block;
+    margin-top: auto;
+    padding: 3px 10px;
+    border-radius: 99px;
+    font-size: 11px;
+    font-weight: 600;
+    background: rgba($color-dark, 0.07);
+    color: $color-text-muted;
+    width: fit-content;
+  }
+
+  .card-arrow {
+    position: absolute;
+    top: $space-md;
+    right: $space-md;
+    color: rgba($color-dark, 0.25);
+    font-size: 18px !important;
+    width: 18px !important;
+    height: 18px !important;
+    transition: color 0.15s;
+  }
+
+  &:hover:not(.unavailable) .card-arrow {
+    color: $color-dark;
+  }
+}

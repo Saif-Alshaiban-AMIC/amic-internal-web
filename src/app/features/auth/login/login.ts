@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
-import { AuthService } from '../../../services/auth-service';
+import { AuthService, AuthResponse } from '../../../services/auth-service';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { ToastService } from '../../../services/toast-service';
 
@@ -31,9 +31,9 @@ export class Login {
       email: this.email,
       password: this.password
     }).subscribe({
-      next: (token: string) => {
+      next: (response: AuthResponse) => {
+        this.authService.storeTokens(response);
         this.toast.success('Login successful');
-        localStorage.setItem('token', token);
         this.router.navigate(['/dashboard']);
       },
       error: (err) => {

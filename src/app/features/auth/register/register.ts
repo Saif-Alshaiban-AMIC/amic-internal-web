@@ -22,16 +22,19 @@ export class Register {
   jobTitle = '';
   showPassword = false;
 
-  // Populate from your Department enum values
-  departments = ["HR",
-    "IT",
-    "SALES",
-    "MARKETING",
-    "FINANCE",
-    "OPERATIONS",
-    "PROCUREMENT",
-    "LEGAL",
-    "CUSTOMER_SERVICE",];
+  departments = [
+    'HUMAN_RESOURCES',
+    'IT_MIS',
+    'FINANCE',
+    'BUSINESS_DEVELOPMENT',
+    'BUSINESS_PROCESS',
+    'CONTRACTS_COMPLIANCE',
+    'ENGINEERING_RD',
+    'EXECUTIVE',
+    'IPP',
+    'PROJECTS',
+    'SUPPLY_CHAIN',
+  ];
 
   constructor(
     private router: Router,

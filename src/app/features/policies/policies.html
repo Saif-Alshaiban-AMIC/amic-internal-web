@@ -1,1 +1,28 @@
-<p>policies works!</p>
+<div class="dept-page">
+  <div class="page-header">
+    <div class="header-icon"><mat-icon>description</mat-icon></div>
+    <div>
+      <h1>{{ 'POLICIES.TITLE' | translate }}</h1>
+      <p class="subtitle">{{ 'POLICIES.SUBTITLE' | translate }}</p>
+    </div>
+  </div>
+
+  <div class="tabs">
+    <button class="tab-btn active"><mat-icon>apps</mat-icon> {{ 'COMMON.SERVICES' | translate }}</button>
+  </div>
+
+  <div class="services-grid">
+    @for (card of services; track card.titleKey) {
+      <div class="service-card" [class.unavailable]="!card.available">
+        <div class="card-icon"><mat-icon>{{ card.icon }}</mat-icon></div>
+        <p class="card-title">{{ card.titleKey | translate }}</p>
+        <p class="card-desc">{{ card.descKey | translate }}</p>
+        @if (!card.available) {
+          <span class="card-badge">{{ 'COMMON.COMING_SOON' | translate }}</span>
+        } @else {
+          <mat-icon class="card-arrow">arrow_forward</mat-icon>
+        }
+      </div>
+    }
+  </div>
+</div>
