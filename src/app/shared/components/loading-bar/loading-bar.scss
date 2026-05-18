@@ -1,0 +1,26 @@
+@use '../../../../styles/variables' as *;
+
+.loading-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  z-index: 9999;
+  background: rgba($color-peach, 0.2);
+  overflow: hidden;
+}
+
+.loading-bar__track {
+  height: 100%;
+  background: $color-peach;
+  animation: indeterminate 1.4s ease-in-out infinite;
+  transform-origin: left center;
+}
+
+@keyframes indeterminate {
+  0%   { transform: translateX(-100%) scaleX(0.3); }
+  40%  { transform: translateX(0%)    scaleX(0.6); }
+  70%  { transform: translateX(60%)   scaleX(0.4); }
+  100% { transform: translateX(120%)  scaleX(0.3); }
+}

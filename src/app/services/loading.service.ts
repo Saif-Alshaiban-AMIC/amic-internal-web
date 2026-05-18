@@ -1,0 +1,13 @@
+import { Injectable, computed, signal } from '@angular/core';
+
+@Injectable({ providedIn: 'root' })
+export class LoadingService {
+
+  private activeRequests = signal(0);
+
+  /** True whenever at least one HTTP request is in flight. */
+  readonly isLoading = computed(() => this.activeRequests() > 0);
+
+  start() { this.activeRequests.update(n => n + 1); }
+  stop()  { this.activeRequests.update(n => Math.max(0, n - 1)); }
+}

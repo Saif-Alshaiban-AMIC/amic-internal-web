@@ -13,7 +13,7 @@
 
   <div class="services-grid">
     @for (card of services; track card.titleKey) {
-      <div class="service-card" [class.unavailable]="!card.available">
+      <div class="service-card" [class.unavailable]="!card.available" (click)="open(card.link)">
         <div class="card-icon"><mat-icon>{{ card.icon }}</mat-icon></div>
         <p class="card-title">{{ card.titleKey | translate }}</p>
         <p class="card-desc">{{ card.descKey | translate }}</p>

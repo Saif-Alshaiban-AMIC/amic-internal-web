@@ -122,7 +122,9 @@
     "SVC_ONBOARDING": { "TITLE": "Onboarding",            "DESC": "Manage new hire setup, documents, and orientation." },
     "SVC_PERF":       { "TITLE": "Performance Review",    "DESC": "Initiate and track employee performance evaluations." },
     "SVC_TRAINING":   { "TITLE": "Training & Development","DESC": "Browse and enroll in training programs and courses." },
-    "SVC_PAYROLL":    { "TITLE": "Payroll",               "DESC": "View payslips, allowances, and deduction summaries." }
+    "SVC_PAYROLL":    { "TITLE": "Payroll",               "DESC": "View payslips, allowances, and deduction summaries." },
+    "SVC_VISITORS":   { "TITLE": "AMIC Visitors",         "DESC": "Manage and track visitor registrations and access at AMIC facilities." },
+    "SVC_SPEAKSAFE":  { "TITLE": "Speak Safe",            "DESC": "Submit an anonymous complaint or concern confidentially and securely." }
   },
 
   "IT": {
@@ -183,11 +185,11 @@
   "IMPORTANT_LINKS": {
     "TITLE":    "Important Links",
     "SUBTITLE": "Quick access to systems, tools, and external portals",
-    "SVC_ERP":      { "TITLE": "ERP System",          "DESC": "Access the enterprise resource planning system." },
-    "SVC_CLOUD":    { "TITLE": "Cloud Storage",       "DESC": "SharePoint, OneDrive, and shared file repositories." },
-    "SVC_TEAMS":    { "TITLE": "Teams / Meet",        "DESC": "Launch Microsoft Teams or Google Meet for video calls." },
-    "SVC_PM":       { "TITLE": "Project Management",  "DESC": "Access Jira, Asana, or the internal project tracker." },
-    "SVC_EMAIL":    { "TITLE": "Company Email",       "DESC": "Open Outlook or the corporate webmail portal." },
-    "SVC_PORTAL":   { "TITLE": "Employee Portal",     "DESC": "Access payslips, HR forms, and self-service features." }
+    "SVC_ERP":    { "TITLE": "ERP System",         "DESC": "Access the enterprise resource planning system." },
+    "SVC_CLOUD":  { "TITLE": "Cloud Storage",      "DESC": "SharePoint, OneDrive, and shared file repositories." },
+    "SVC_TEAMS":  { "TITLE": "Teams / Meet",       "DESC": "Launch Microsoft Teams or Google Meet for video calls." },
+    "SVC_PM":     { "TITLE": "Project Management", "DESC": "Access Jira, Asana, or the internal project tracker." },
+    "SVC_EMAIL":  { "TITLE": "Company Email",      "DESC": "Open Outlook or the corporate webmail portal." },
+    "SVC_PORTAL": { "TITLE": "Employee Portal",    "DESC": "Access payslips, HR forms, and self-service features." }
   }
 }

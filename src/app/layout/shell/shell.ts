@@ -3,11 +3,12 @@ import { RouterOutlet } from '@angular/router';
 import { Sidebar } from '../sidebar/sidebar';
 import { Topbar } from '../topbar/topbar';
 import { NotificationsPanel } from '../../shared/components/notifications-panel/notifications-panel';
+import { LoadingBarComponent } from '../../shared/components/loading-bar/loading-bar';
 
 @Component({
   selector: 'app-shell',
   standalone: true,
-  imports: [RouterOutlet, Sidebar, Topbar, NotificationsPanel],
+  imports: [RouterOutlet, Sidebar, Topbar, NotificationsPanel, LoadingBarComponent],
   templateUrl: './shell.html',
   styleUrl: './shell.scss'
 })

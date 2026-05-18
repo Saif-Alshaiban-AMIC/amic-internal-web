@@ -13,6 +13,7 @@ interface ServiceCard {
   titleKey: string;
   descKey: string;
   available: boolean;
+  link?: string;
 }
 
 export interface BulkRow extends CreateUserPayload {
@@ -40,10 +41,13 @@ export class Hr implements OnInit {
     { icon: 'star_rate',       titleKey: 'HR.SVC_PERF.TITLE',       descKey: 'HR.SVC_PERF.DESC',       available: false },
     { icon: 'school',          titleKey: 'HR.SVC_TRAINING.TITLE',   descKey: 'HR.SVC_TRAINING.DESC',   available: false },
     { icon: 'payments',        titleKey: 'HR.SVC_PAYROLL.TITLE',    descKey: 'HR.SVC_PAYROLL.DESC',    available: false },
+    { icon: 'badge_critical',  titleKey: 'HR.SVC_VISITORS.TITLE',   descKey: 'HR.SVC_VISITORS.DESC',   available: true, link: 'https://amic-visitors-web.onrender.com/admin' },
+    { icon: 'report_problem', titleKey: 'HR.SVC_SPEAKSAFE.TITLE', descKey: 'HR.SVC_SPEAKSAFE.DESC',  available: true, link: 'https://ssamic.onrender.com/' },
   ];
 
   openService(card: ServiceCard) {
     if (!card.available) return;
+    if (card.link) { window.open(card.link, '_blank', 'noopener,noreferrer'); return; }
     if (card.titleKey === 'HR.SVC_USER_MGT.TITLE') this.activeTab.set('users');
   }
 
