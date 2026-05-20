@@ -1,4 +1,6 @@
 <div class="dept-page">
+
+  <!-- Page header -->
   <div class="page-header">
     <div class="header-icon"><mat-icon>computer</mat-icon></div>
     <div>
@@ -7,22 +9,259 @@
     </div>
   </div>
 
+  <!-- Tabs -->
   <div class="tabs">
-    <button class="tab-btn active"><mat-icon>apps</mat-icon> {{ 'COMMON.SERVICES' | translate }}</button>
+    <button class="tab-btn" [class.active]="activeTab() === 'services'" (click)="activeTab.set('services')">
+      <mat-icon>apps</mat-icon> {{ 'COMMON.SERVICES' | translate }}
+    </button>
+    <button class="tab-btn" [class.active]="activeTab() === 'requests'" (click)="activeTab.set('requests')">
+      <mat-icon>code</mat-icon> {{ 'IT.TAB_DEV_REQUESTS' | translate }}
+    </button>
   </div>
 
-  <div class="services-grid">
-    @for (card of services; track card.titleKey) {
-      <div class="service-card" [class.unavailable]="!card.available">
-        <div class="card-icon"><mat-icon>{{ card.icon }}</mat-icon></div>
-        <p class="card-title">{{ card.titleKey | translate }}</p>
-        <p class="card-desc">{{ card.descKey | translate }}</p>
-        @if (!card.available) {
-          <span class="card-badge">{{ 'COMMON.COMING_SOON' | translate }}</span>
-        } @else {
-          <mat-icon class="card-arrow">arrow_forward</mat-icon>
-        }
+  <!-- ── Services tab ──────────────────────────────────────────────────────── -->
+  @if (activeTab() === 'services') {
+    <div class="services-grid">
+      @for (card of services; track card.titleKey) {
+        <div class="service-card" [class.unavailable]="!card.available" (click)="openService(card)">
+          <div class="card-icon"><mat-icon>{{ card.icon }}</mat-icon></div>
+          <p class="card-title">{{ card.titleKey | translate }}</p>
+          <p class="card-desc">{{ card.descKey | translate }}</p>
+          @if (!card.available) {
+            <span class="card-badge">{{ 'COMMON.COMING_SOON' | translate }}</span>
+          } @else {
+            <mat-icon class="card-arrow">arrow_forward</mat-icon>
+          }
+        </div>
+      }
+    </div>
+  }
+
+  <!-- ── Dev Requests tab ───────────────────────────────────────────────────── -->
+  @if (activeTab() === 'requests') {
+    <div class="users-header">
+      <div class="search-bar">
+        <mat-icon class="search-icon">search</mat-icon>
+        <input
+          [placeholder]="'DEV_REQUEST.SEARCH' | translate"
+          [ngModel]="search()"
+          (ngModelChange)="search.set($event)" />
+      </div>
+      <div class="header-actions">
+        <button class="btn-primary" (click)="openForm()">
+          <mat-icon>add</mat-icon> {{ 'DEV_REQUEST.BTN_NEW' | translate }}
+        </button>
+      </div>
+    </div>
+
+    @if (loading()) {
+      <div class="state-center"><mat-icon class="spin">sync</mat-icon></div>
+    } @else {
+      <div class="table-card">
+        <table class="users-table">
+          <thead>
+            <tr>
+              <th>{{ 'DEV_REQUEST.COL_APP'       | translate }}</th>
+              <th>{{ 'DEV_REQUEST.COL_REQUESTER'  | translate }}</th>
+              <th>{{ 'DEV_REQUEST.COL_TYPE'       | translate }}</th>
+              <th>{{ 'DEV_REQUEST.COL_PRIORITY'   | translate }}</th>
+              <th>{{ 'DEV_REQUEST.COL_STATUS'     | translate }}</th>
+              <th>{{ 'DEV_REQUEST.COL_DATE'       | translate }}</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (r of filtered(); track r.id) {
+              <tr class="clickable-row" (click)="openDetail(r)">
+                <td>
+                  <div class="app-cell">
+                    <div class="app-icon"><mat-icon>code</mat-icon></div>
+                    <div>
+                      <span class="app-name">{{ r.appName }}</span>
+                      <span class="app-dept muted">{{ r.department || '—' }}</span>
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  <span class="full-name">{{ r.requesterName }}</span>
+                  <span class="muted small-text">{{ r.requesterEmail }}</span>
+                </td>
+                <td class="muted">{{ formatType(r.appType) }}</td>
+                <td>
+                  <span class="badge {{ priorityClass(r.priority) }}">{{ r.priority }}</span>
+                </td>
+                <td>
+                  <span class="badge {{ statusClass(r.status) }}">{{ r.status | titlecase }}</span>
+                </td>
+                <td class="muted">{{ r.createdAt | date: 'MMM d, y' }}</td>
+                <td>
+                  <button class="btn-icon danger" (click)="remove(r, $event)">
+                    <mat-icon>delete_outline</mat-icon>
+                  </button>
+                </td>
+              </tr>
+            } @empty {
+              <tr><td colspan="7" class="empty-row">{{ 'DEV_REQUEST.EMPTY' | translate }}</td></tr>
+            }
+          </tbody>
+        </table>
       </div>
     }
-  </div>
+  }
+
 </div>
+
+<!-- ── New Request drawer ──────────────────────────────────────────────────── -->
+@if (showForm()) {
+  <div class="overlay" (click)="closeForm()"></div>
+  <aside class="drawer">
+    <div class="drawer-header">
+      <h2>{{ 'DEV_REQUEST.FORM_TITLE' | translate }}</h2>
+      <button class="btn-icon" (click)="closeForm()"><mat-icon>close</mat-icon></button>
+    </div>
+    <div class="drawer-body">
+
+      <div class="name-row">
+        <div class="form-field">
+          <label>{{ 'DEV_REQUEST.REQUESTER_NAME' | translate }} <span class="req">*</span></label>
+          <input [placeholder]="'DEV_REQUEST.PH_NAME' | translate" [(ngModel)]="form.requesterName" />
+        </div>
+        <div class="form-field">
+          <label>{{ 'DEV_REQUEST.REQUESTER_EMAIL' | translate }} <span class="req">*</span></label>
+          <input type="email" [placeholder]="'DEV_REQUEST.PH_EMAIL' | translate" [(ngModel)]="form.requesterEmail" />
+        </div>
+      </div>
+
+      <div class="form-field">
+        <label>{{ 'DEV_REQUEST.DEPARTMENT' | translate }}</label>
+        <select [(ngModel)]="form.department">
+          <option value="" disabled>{{ 'USER_FORM.PH_SELECT' | translate }}</option>
+          @for (d of departments; track d) {
+            <option [value]="d">{{ d.replace('_', ' ') }}</option>
+          }
+        </select>
+      </div>
+
+      <div class="name-row">
+        <div class="form-field">
+          <label>{{ 'DEV_REQUEST.APP_NAME' | translate }} <span class="req">*</span></label>
+          <input [placeholder]="'DEV_REQUEST.PH_APP_NAME' | translate" [(ngModel)]="form.appName" />
+        </div>
+        <div class="form-field">
+          <label>{{ 'DEV_REQUEST.APP_TYPE' | translate }} <span class="req">*</span></label>
+          <select [(ngModel)]="form.appType">
+            <option value="" disabled>{{ 'USER_FORM.PH_SELECT' | translate }}</option>
+            @for (t of appTypes; track t) {
+              <option [value]="t">{{ formatType(t) }}</option>
+            }
+          </select>
+        </div>
+      </div>
+
+      <div class="form-field">
+        <label>{{ 'DEV_REQUEST.DESCRIPTION' | translate }} <span class="req">*</span></label>
+        <textarea rows="4" [placeholder]="'DEV_REQUEST.PH_DESC' | translate" [(ngModel)]="form.description"></textarea>
+      </div>
+
+      <div class="name-row">
+        <div class="form-field">
+          <label>{{ 'DEV_REQUEST.PRIORITY' | translate }}</label>
+          <select [(ngModel)]="form.priority">
+            @for (p of priorities; track p) {
+              <option [value]="p">{{ p }}</option>
+            }
+          </select>
+        </div>
+        <div class="form-field">
+          <label>{{ 'DEV_REQUEST.TARGET_DATE' | translate }}</label>
+          <input type="date" [(ngModel)]="form.targetDate" />
+        </div>
+      </div>
+
+      @if (formError) {
+        <p class="form-error">{{ formError | translate }}</p>
+      }
+    </div>
+    <div class="drawer-footer">
+      <button class="btn-secondary" (click)="closeForm()" [disabled]="saving()">{{ 'COMMON.CANCEL' | translate }}</button>
+      <button class="btn-primary" (click)="submit()" [disabled]="saving()">
+        @if (saving()) { <mat-icon class="spin">sync</mat-icon> }
+        @else { <mat-icon>send</mat-icon> {{ 'DEV_REQUEST.BTN_SUBMIT' | translate }} }
+      </button>
+    </div>
+  </aside>
+}
+
+<!-- ── Request Detail / Edit drawer ───────────────────────────────────────── -->
+@if (showDetail() && selected()) {
+  <div class="overlay" (click)="closeDetail()"></div>
+  <aside class="drawer drawer-wide">
+    <div class="drawer-header">
+      <div>
+        <h2>{{ selected()!.appName }}</h2>
+        <span class="detail-meta">{{ 'DEV_REQUEST.SUBMITTED' | translate }} {{ selected()!.createdAt | date: 'MMM d, y' }}</span>
+      </div>
+      <button class="btn-icon" (click)="closeDetail()"><mat-icon>close</mat-icon></button>
+    </div>
+    <div class="drawer-body">
+
+      <!-- Read-only info grid -->
+      <div class="detail-grid">
+        <div class="detail-item">
+          <span class="detail-label">{{ 'DEV_REQUEST.REQUESTER_NAME' | translate }}</span>
+          <span class="detail-value">{{ selected()!.requesterName }}</span>
+        </div>
+        <div class="detail-item">
+          <span class="detail-label">{{ 'DEV_REQUEST.REQUESTER_EMAIL' | translate }}</span>
+          <span class="detail-value muted">{{ selected()!.requesterEmail }}</span>
+        </div>
+        <div class="detail-item">
+          <span class="detail-label">{{ 'DEV_REQUEST.DEPARTMENT' | translate }}</span>
+          <span class="detail-value">{{ selected()!.department || '—' }}</span>
+        </div>
+        <div class="detail-item">
+          <span class="detail-label">{{ 'DEV_REQUEST.APP_TYPE' | translate }}</span>
+          <span class="detail-value">{{ formatType(selected()!.appType) }}</span>
+        </div>
+        <div class="detail-item">
+          <span class="detail-label">{{ 'DEV_REQUEST.PRIORITY' | translate }}</span>
+          <span class="badge {{ priorityClass(selected()!.priority) }}">{{ selected()!.priority }}</span>
+        </div>
+        <div class="detail-item">
+          <span class="detail-label">{{ 'DEV_REQUEST.TARGET_DATE' | translate }}</span>
+          <span class="detail-value">{{ (selected()!.targetDate | date: 'MMM d, y') || '—' }}</span>
+        </div>
+      </div>
+
+      <div class="form-field">
+        <label>{{ 'DEV_REQUEST.DESCRIPTION' | translate }}</label>
+        <p class="desc-text">{{ selected()!.description }}</p>
+      </div>
+
+      <hr class="divider" />
+
+      <!-- Editable IT fields -->
+      <div class="form-field">
+        <label>{{ 'DEV_REQUEST.STATUS' | translate }}</label>
+        <select [(ngModel)]="editStatus">
+          @for (s of statuses; track s) {
+            <option [value]="s">{{ s | titlecase }}</option>
+          }
+        </select>
+      </div>
+
+      <div class="form-field">
+        <label>{{ 'DEV_REQUEST.NOTES' | translate }}</label>
+        <textarea rows="4" [placeholder]="'DEV_REQUEST.PH_NOTES' | translate" [(ngModel)]="editNotes"></textarea>
+      </div>
+
+    </div>
+    <div class="drawer-footer">
+      <button class="btn-secondary" (click)="closeDetail()" [disabled]="saving()">{{ 'COMMON.CANCEL' | translate }}</button>
+      <button class="btn-primary" (click)="saveDetail()" [disabled]="saving()">
+        @if (saving()) { <mat-icon class="spin">sync</mat-icon> }
+        @else { <mat-icon>save</mat-icon> {{ 'COMMON.SAVE' | translate }} }
+      </button>
+    </div>
+  </aside>
+}

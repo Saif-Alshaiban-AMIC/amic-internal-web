@@ -1,6 +1,7 @@
 @use '../../../styles/variables' as *;
 @use '../../../styles/service-grid' as *;
 
+// ── Page layout ───────────────────────────────────────────────────────────────
 .dept-page { max-width: 1100px; }
 
 .page-header {
@@ -22,3 +23,311 @@
   h1 { font-size: $font-size-xl; font-weight: 700; color: $color-text; margin: 0 0 2px; }
   .subtitle { font-size: $font-size-sm; color: $color-text-muted; margin: 0; }
 }
+
+// ── Tabs ──────────────────────────────────────────────────────────────────────
+.tabs {
+  display: flex;
+  gap: $space-xs;
+  margin-bottom: $space-xl;
+  border-bottom: 2px solid rgba($color-dark, 0.08);
+}
+
+.tab-btn {
+  display: flex;
+  align-items: center;
+  gap: $space-xs;
+  padding: $space-sm $space-md;
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -2px;
+  font-family: inherit;
+  font-size: $font-size-sm;
+  font-weight: 500;
+  color: $color-text-muted;
+  cursor: pointer;
+  transition: color 0.15s, border-color 0.15s;
+  mat-icon { font-size: 18px; width: 18px; height: 18px; }
+
+  &.active {
+    color: $color-dark;
+    border-bottom-color: $color-dark;
+  }
+  &:hover:not(.active) { color: $color-text; }
+}
+
+// ── List controls ─────────────────────────────────────────────────────────────
+.users-header {
+  display: flex;
+  align-items: center;
+  gap: $space-md;
+  margin-bottom: $space-lg;
+}
+
+.search-bar {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: $space-sm;
+  background: $color-surface;
+  border: 1.5px solid rgba($color-dark, 0.12);
+  border-radius: $radius-sm;
+  padding: 0 $space-md;
+
+  .search-icon { color: $color-text-muted; font-size: 20px; }
+
+  input {
+    flex: 1;
+    border: none; outline: none;
+    padding: 10px 0;
+    font-size: $font-size-sm;
+    font-family: inherit;
+    color: $color-text;
+    background: transparent;
+    &::placeholder { color: $color-text-muted; }
+  }
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: $space-sm;
+}
+
+// ── Table ─────────────────────────────────────────────────────────────────────
+.table-card {
+  background: $color-surface;
+  border-radius: $radius-md;
+  box-shadow: $shadow-sm;
+  overflow: hidden;
+}
+
+.users-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: $font-size-sm;
+
+  th {
+    text-align: left;
+    padding: $space-sm $space-md;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: $color-text-muted;
+    background: rgba($color-light, 0.6);
+    border-bottom: 1px solid rgba($color-dark, 0.08);
+  }
+
+  td {
+    padding: $space-sm $space-md;
+    border-bottom: 1px solid rgba($color-dark, 0.06);
+    color: $color-text;
+    vertical-align: middle;
+  }
+
+  tr:last-child td { border-bottom: none; }
+  tr.clickable-row { cursor: pointer; }
+  tr.clickable-row:hover td { background: rgba($color-light, 0.5); }
+  .muted { color: $color-text-muted; }
+}
+
+.app-cell {
+  display: flex;
+  align-items: center;
+  gap: $space-sm;
+}
+
+.app-icon {
+  width: 34px; height: 34px;
+  border-radius: $radius-sm;
+  background: rgba($color-peach, 0.15);
+  display: flex; align-items: center; justify-content: center;
+  color: darken($color-peach, 15%);
+  flex-shrink: 0;
+  mat-icon { font-size: 18px; }
+}
+
+.app-name { display: block; font-weight: 500; }
+.app-dept { display: block; font-size: 12px; }
+.small-text { display: block; font-size: 12px; }
+.full-name { display: block; font-weight: 500; }
+
+// ── Badges ────────────────────────────────────────────────────────────────────
+.badge {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 99px;
+  font-size: 11px;
+  font-weight: 600;
+  background: rgba($color-dark, 0.08);
+  color: $color-text-muted;
+}
+
+// Priority
+.pri-low      { background: rgba(#27ae60, 0.12); color: #1e8449; }
+.pri-medium   { background: rgba(#f39c12, 0.15); color: #b7770d; }
+.pri-high     { background: rgba(#e67e22, 0.15); color: #a04000; }
+.pri-critical { background: rgba(#e74c3c, 0.15); color: #c0392b; }
+
+// Status
+.st-pending   { background: rgba($color-dark,  0.08); color: $color-text-muted; }
+.st-review    { background: rgba(#3498db, 0.12); color: #1a6fa3; }
+.st-approved  { background: rgba(#27ae60, 0.12); color: #1e8449; }
+.st-progress  { background: rgba(#8e44ad, 0.12); color: #6c3483; }
+.st-done      { background: rgba(#27ae60, 0.20); color: #145a32; }
+.st-rejected  { background: rgba(#e74c3c, 0.12); color: #c0392b; }
+
+.empty-row {
+  text-align: center;
+  padding: $space-2xl !important;
+  color: $color-text-muted;
+}
+
+// ── Buttons ───────────────────────────────────────────────────────────────────
+.btn-primary {
+  display: flex; align-items: center; gap: $space-xs;
+  padding: $space-sm $space-lg;
+  background: $color-dark; color: white;
+  border: none; border-radius: $radius-sm;
+  font-family: inherit; font-size: $font-size-sm; font-weight: 500;
+  cursor: pointer; white-space: nowrap; transition: background 0.2s;
+  mat-icon { font-size: 18px; width: 18px; height: 18px; }
+  &:hover:not(:disabled) { background: $color-mid; }
+  &:disabled { opacity: 0.6; cursor: default; }
+}
+
+.btn-secondary {
+  padding: $space-sm $space-lg;
+  background: transparent; color: $color-text;
+  border: 1.5px solid rgba($color-dark, 0.2); border-radius: $radius-sm;
+  font-family: inherit; font-size: $font-size-sm; font-weight: 500;
+  cursor: pointer; transition: border-color 0.2s;
+  &:hover:not(:disabled) { border-color: $color-mid; }
+  &:disabled { opacity: 0.6; cursor: default; }
+}
+
+.btn-icon {
+  background: none; border: none; cursor: pointer;
+  border-radius: $radius-sm; padding: 4px;
+  display: flex; align-items: center;
+  color: $color-text-muted; transition: color 0.15s, background 0.15s;
+  mat-icon { font-size: 20px; }
+  &:hover { color: $color-text; background: rgba($color-dark, 0.06); }
+  &.danger:hover { color: #c0392b; background: rgba(192,57,43,0.08); }
+}
+
+// ── State ─────────────────────────────────────────────────────────────────────
+.state-center {
+  display: flex; justify-content: center;
+  padding: $space-2xl; color: $color-text-muted;
+}
+
+// ── Drawer ────────────────────────────────────────────────────────────────────
+.overlay {
+  position: fixed; inset: 0;
+  background: rgba($color-dark, 0.35);
+  z-index: 100; animation: fade-in 0.2s ease;
+}
+
+.drawer {
+  position: fixed; top: 0; right: 0; bottom: 0;
+  width: 460px;
+  background: $color-surface; box-shadow: $shadow-lg;
+  z-index: 101; display: flex; flex-direction: column;
+  animation: slide-in 0.25s ease;
+}
+
+.drawer-wide { width: min(680px, 92vw) !important; }
+
+.drawer-header {
+  display: flex; align-items: flex-start; justify-content: space-between;
+  padding: $space-lg;
+  border-bottom: 1px solid rgba($color-dark, 0.08);
+  h2 { font-size: $font-size-lg; font-weight: 700; margin: 0 0 2px; }
+  .detail-meta { font-size: 12px; color: $color-text-muted; }
+}
+
+.drawer-body {
+  flex: 1; overflow-y: auto;
+  padding: $space-lg;
+  display: flex; flex-direction: column; gap: $space-md;
+}
+
+.drawer-footer {
+  display: flex; justify-content: flex-end; gap: $space-sm;
+  padding: $space-md $space-lg;
+  border-top: 1px solid rgba($color-dark, 0.08);
+}
+
+// ── Form fields ───────────────────────────────────────────────────────────────
+.name-row {
+  display: grid; grid-template-columns: 1fr 1fr; gap: $space-md;
+}
+
+.form-field {
+  display: flex; flex-direction: column; gap: 5px;
+
+  label {
+    font-size: 11px; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.05em;
+    color: $color-brown;
+  }
+
+  .req { color: $color-peach; }
+
+  input, select, textarea {
+    padding: 9px 12px;
+    border: 1.5px solid rgba($color-dark, 0.15);
+    border-radius: $radius-sm;
+    font-size: $font-size-sm; font-family: inherit;
+    color: $color-text; background: $color-surface;
+    outline: none; width: 100%; box-sizing: border-box;
+    transition: border-color 0.15s;
+    &:focus { border-color: $color-mid; }
+  }
+
+  textarea { resize: vertical; min-height: 100px; }
+}
+
+.form-error { font-size: $font-size-sm; color: #c0392b; margin: 0; }
+
+// ── Detail view ───────────────────────────────────────────────────────────────
+.detail-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: $space-md;
+  background: rgba($color-light, 0.5);
+  border-radius: $radius-sm; padding: $space-md;
+}
+
+.detail-item {
+  display: flex; flex-direction: column; gap: 3px;
+}
+
+.detail-label {
+  font-size: 11px; font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.05em;
+  color: $color-text-muted;
+}
+
+.detail-value { font-size: $font-size-sm; color: $color-text; }
+
+.desc-text {
+  font-size: $font-size-sm; color: $color-text;
+  line-height: 1.6; margin: 0;
+  white-space: pre-wrap;
+}
+
+.divider {
+  border: none; border-top: 1px solid rgba($color-dark, 0.1); margin: 0;
+}
+
+// ── Animations ────────────────────────────────────────────────────────────────
+@keyframes slide-in { from { transform: translateX(100%); } to { transform: translateX(0); } }
+@keyframes fade-in  { from { opacity: 0; } to { opacity: 1; } }
+
+.spin {
+  animation: spin 0.8s linear infinite;
+  display: inline-flex !important;
+}
+
+@keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
